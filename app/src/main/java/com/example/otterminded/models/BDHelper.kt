@@ -7,22 +7,19 @@ import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
 
 class BDHelper(context: Context) :
-    SQLiteOpenHelper(context, "biblioloutre", null, 1) {
+    SQLiteOpenHelper(context, "LocaLoutre", null, 1) {
 
     override fun onCreate(db: SQLiteDatabase?) {
         db?.beginTransaction()
         try {
-            val createTableLivre = """
-            CREATE TABLE livre (
+            val createTableQuestion = """
+            CREATE TABLE question (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-                nom VARCHAR(30) NOT NULL,
-                datesortie VARCHAR(30) NOT NULL,
-                emprunt BOOLEAN DEFAULT 0,
-                id_emprunt INTEGER,
-                FOREIGN KEY (id_emprunt) REFERENCES utilisateur(id)
+                theme VARCHAR(50) NOT NULL,
+                question VARCHAR(50) NOT NULL
             )
         """.trimIndent()
-            db?.execSQL(createTableLivre)
+            db?.execSQL(createTableQuestion)
 
             val createTableUtilisateur = """
             CREATE TABLE utilisateur (
@@ -43,7 +40,7 @@ class BDHelper(context: Context) :
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-        db?.execSQL("DROP TABLE IF EXISTS livre")
+        db?.execSQL("DROP TABLE IF EXISTS question")
         db?.execSQL("DROP TABLE IF EXISTS utilisateur")
         onCreate(db)
     }
