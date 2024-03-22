@@ -16,4 +16,5 @@
         <item>Science</item>
         <item>Autre</item>
     </string-array>
+    <string name="title_activity_question">QuestionActivity</string>
 </resources>
