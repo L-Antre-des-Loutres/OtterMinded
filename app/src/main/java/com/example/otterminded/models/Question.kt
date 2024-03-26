@@ -1,7 +1,7 @@
 package com.example.otterminded.models
 
-class Question (
-    var id: Int,
-    var theme: String,
-    var question: String
+data class Question (
+    val id: Int,
+    val theme: String,
+    val question: String
 )
