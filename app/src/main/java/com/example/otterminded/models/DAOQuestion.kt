@@ -1,102 +1,70 @@
 package com.example.otterminded.models
 
-import android.annotation.SuppressLint
-import android.database.sqlite.SQLiteDatabase
 import android.content.ContentValues
 import android.content.Context
-import android.util.Log
-import com.example.otterminded.R
-import org.json.JSONObject
-import java.io.InputStream
 
 class DAOQuestion(context: Context) {
-    private lateinit var monBDHelper: BDHelper
-    private lateinit var maBase: SQLiteDatabase
 
-    init {
-        monBDHelper = BDHelper(context)
+    private val dbHelper: BDHelper = BDHelper(context)
+
+    fun addQuestion(theme: String, question: String): Long {
+        val db = dbHelper.writableDatabase
+        val values = ContentValues().apply {
+            put("theme", theme)
+            put("question", question)
+        }
+        val newRowId = db.insert("question", null, values)
+        db.close()
+        return newRowId
     }
 
-    // Test de la base
-    fun testBase(): Int {
-        open()
-        val req = "SELECT COUNT(id) FROM question"
-        val cursor = maBase.rawQuery(req, null)
-        cursor.moveToFirst()
-        val count = cursor.getInt(0)
+    fun getAllQuestions(): ArrayList<Question> {
+        val questions = ArrayList<Question>()
+        val db = dbHelper.readableDatabase
+        val cursor = db.rawQuery("SELECT * FROM question", null)
+        while (cursor.moveToNext()) {
+            val id = cursor.getLong(cursor.getColumnIndex("id"))
+            val theme = cursor.getString(cursor.getColumnIndex("theme"))
+            val questionText = cursor.getString(cursor.getColumnIndex("question"))
+            val question = Question(id, theme, questionText)
+            questions.add(question)
+        }
         cursor.close()
-        close()
-        return count
+        db.close()
+        return questions
     }
 
-    fun deleteQuestion(id: Int) {
-        open()
-        val colonne = "id = ?"
-        val args = arrayOf(id.toString())
-        maBase.delete("question", colonne, args)
-        close()
-    }
-
-    public fun getLesQuestions(): MutableList<Question> {
-        val lesQuestions: MutableList<Question> = mutableListOf()
-
-        val cursor = maBase.query(
-            "question",
-            arrayOf("id", "theme", "question"),
-            null,
-            null,
-            null,
-            null,
-            "theme"
-        )
-
-        try {
-            while (cursor.moveToNext()) {
-                val id = cursor.getInt(cursor.getColumnIndexOrThrow("id"))
-                val theme = cursor.getString(cursor.getColumnIndexOrThrow("theme"))
-                val question = cursor.getString(cursor.getColumnIndexOrThrow("question"))
-                val uneQuestion = Question(id, theme, question)
-                lesQuestions.add(uneQuestion)
-            }
-        } catch (e: Exception) {
-            Log.e("DB_ERROR", "Error while retrieving questions: ${e.message}")
-        } finally {
-            cursor.close()
+    fun getQuestionById(id: Long): Question? {
+        val db = dbHelper.readableDatabase
+        val cursor = db.rawQuery("SELECT * FROM question WHERE id = ?", arrayOf(id.toString()))
+        var question: Question? = null
+        if (cursor.moveToFirst()) {
+            val theme = cursor.getString(cursor.getColumnIndex("theme"))
+            val questionText = cursor.getString(cursor.getColumnIndex("question"))
+            question = Question(id, theme, questionText)
         }
-
-        return lesQuestions
+        cursor.close()
+        db.close()
+        return question
     }
-    fun updateQuestion(uneQuestion: Question): Int {
-        open()
+
+    fun updateQuestion(id: Long, theme: String, question: String): Int {
+        val db = dbHelper.writableDatabase
         val values = ContentValues().apply {
-            put("theme", uneQuestion.theme)
-            put("question", uneQuestion.question)
+            put("theme", theme)
+            put("question", question)
         }
-
-        val colonne = "id = ?"
-        val args = arrayOf(uneQuestion.id.toString())
-        val result = maBase.update("question", values, colonne, args)
-        close()
-        return result
+        val rowsAffected = db.update("question", values, "id = ?", arrayOf(id.toString()))
+        db.close()
+        return rowsAffected
     }
 
-    fun insertQuestion(uneQuestion: Question): Long {
-        open()
-        val values = ContentValues().apply {
-            put("theme", uneQuestion.theme)
-            put("question", uneQuestion.question)
-        }
-        val result = maBase.insert("question", null, values)
-        close()
-        return result
-    }
-
-    private fun open() {
-        maBase = monBDHelper.writableDatabase
-    }
-
-    private fun close() {
-        maBase.close()
+    fun deleteQuestion(id: Long): Int {
+        val db = dbHelper.writableDatabase
+        val rowsAffected = db.delete("question", "id = ?", arrayOf(id.toString()))
+        db.close()
+        return rowsAffected
     }
 }
+
 

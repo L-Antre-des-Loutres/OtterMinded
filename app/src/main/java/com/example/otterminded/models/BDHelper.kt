@@ -2,13 +2,12 @@ package com.example.otterminded.models
 
 import android.content.ContentValues
 import android.content.Context
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
 class BDHelper(context: Context) :
     SQLiteOpenHelper(context, "LocaLoutre", null, 1) {
-
-    private val daoQuestion: DAOQuestion = DAOQuestion(context)
 
     override fun onCreate(db: SQLiteDatabase) {
         createTableQuestion(db)
