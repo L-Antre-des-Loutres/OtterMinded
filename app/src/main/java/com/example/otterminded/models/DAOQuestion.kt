@@ -65,18 +65,6 @@ class DAOQuestion(context: Context) {
         db.close()
         return rowsAffected
     }
-
-    fun createQuestion(id: Long, theme: String, question: String): Long {
-        val db = dbHelper.writableDatabase
-        val values = ContentValues().apply {
-            put("id", id)
-            put("theme", theme)
-            put("question", question)
-        }
-        val newRowId = db.insert("question", null, values)
-        db.close()
-        return newRowId
-    }
 }
 
 
