@@ -14,9 +14,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.otterminded.CreateQuestionActivity
 import com.example.otterminded.R
+import com.example.otterminded.UpdateQuestionActivity
 import com.example.otterminded.databinding.FragmentSlideshowBinding
 import com.example.otterminded.models.DAOInitializer
-
 
 class SlideshowFragment : Fragment() {
 
@@ -54,7 +54,12 @@ class SlideshowFragment : Fragment() {
         val questions = daoQuestion.getAllQuestions()
 
         // Création de l'adaptateur avec les questions récupérées
-        val adapter = QuestionAdapter(questions)
+        val adapter = QuestionAdapter(questions) { questionId ->
+            // Gérer le clic sur le bouton "Edit"
+            val intent = Intent(requireContext(), UpdateQuestionActivity::class.java)
+            intent.putExtra("question_id", questionId) // Passage de l'ID de la question à l'activité UpdateQuestionActivity
+            startActivity(intent)
+        }
 
         // Liaison de l'adaptateur avec le RecyclerView
         recyclerView.adapter = adapter
@@ -78,4 +83,5 @@ class SlideshowFragment : Fragment() {
     }
 
 }
+
 
