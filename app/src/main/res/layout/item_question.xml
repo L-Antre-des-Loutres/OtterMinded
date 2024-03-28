@@ -4,16 +4,29 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/themeTextView"
+    <!-- Layout pour encapsuler le thème et la question -->
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Theme" />
+        android:orientation="vertical"
+        android:background="@drawable/clickable_border"
+        android:clickable="true"
+        android:padding="8dp"
+        android:layout_marginBottom="8dp">
 
-    <TextView
-        android:id="@+id/questionTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Question" />
+        <!-- TextView pour le thème -->
+        <TextView
+            android:id="@+id/themeTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Theme" />
 
+        <!-- TextView pour la question -->
+        <TextView
+            android:id="@+id/questionTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Question 1" />
+
+    </LinearLayout>
 </LinearLayout>
