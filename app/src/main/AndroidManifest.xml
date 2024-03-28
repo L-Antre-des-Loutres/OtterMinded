@@ -13,6 +13,9 @@
         android:theme="@style/Theme.OtterMinded"
         tools:targetApi="31">
         <activity
+            android:name=".CreateQuestionActivity"
+            android:exported="false" />
+        <activity
             android:name=".QuestionActivity"
             android:exported="false"
             android:label="@string/title_activity_question"
