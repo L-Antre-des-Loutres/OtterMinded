@@ -53,17 +53,17 @@ class UpdateQuestionActivity : AppCompatActivity() {
 
             if (rowsAffected > 0) {
                 // Afficher un message de succès
-                Toast.makeText(this, "Question updated successfully", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "La loutre a mis à jour ta question.", Toast.LENGTH_SHORT).show()
                 // Rediriger vers la page des questions après la mise à jour
                 val intent = Intent(this, SlideshowFragment::class.java)
                 startActivity(intent)
             } else {
                 // Afficher un message d'erreur si la mise à jour a échoué
-                Toast.makeText(this, "Failed to update question", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "La loutre n'a pas réussi à modifier cette question.", Toast.LENGTH_SHORT).show()
             }
         } else {
             // Afficher un message d'erreur si les champs sont vides
-            Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "La loutre n'aime pas les champs de formulaire vides.", Toast.LENGTH_SHORT).show()
         }
     }
     // Méthode appelée lors du clic sur le bouton de suppression
@@ -73,32 +73,32 @@ class UpdateQuestionActivity : AppCompatActivity() {
         if (questionId != -1L) {
             // Affichez une boîte de dialogue de confirmation avant de supprimer la question
             AlertDialog.Builder(this)
-                .setTitle("Delete Question")
-                .setMessage("Are you sure you want to delete this question?")
-                .setPositiveButton("Yes") { dialog, _ ->
+                .setTitle("Une loutre : \"Grouuuu Grouuuuu\"")
+                .setMessage("(Tu es sûr de vouloir supprimer cette question ?)")
+                .setPositiveButton("Oui") { dialog, _ ->
                     // Supprimez la question en utilisant DAO
                     val daoQuestion = DAOInitializer.getDAOQuestion()
                     val rowsAffected = daoQuestion.deleteQuestion(questionId)
 
                     if (rowsAffected > 0) {
                         // Affichez un message de confirmation si la suppression a réussi
-                        Toast.makeText(this, "Question deleted successfully", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "La loutre a réussi à supprimer cette question.", Toast.LENGTH_SHORT).show()
                         val intent = Intent(this, SlideshowFragment::class.java)
                         startActivity(intent)
                         // Optionnel : Redirigez vers la liste des questions ou terminez cette activité
                         finish()
                     } else {
                         // Affichez un message d'erreur si la suppression a échoué
-                        Toast.makeText(this, "Failed to delete question", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "Échec de la suppression de la question par la loutre.", Toast.LENGTH_SHORT).show()
                     }
                 }
-                .setNegativeButton("No") { dialog, _ ->
+                .setNegativeButton("Non") { dialog, _ ->
                     dialog.dismiss() // Fermer la boîte de dialogue sans rien faire
                 }
                 .show()
         } else {
             // Affichez un message d'erreur si l'ID de la question est invalide
-            Toast.makeText(this, "Invalid question ID", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "L'id de la Loutre Question n'est pas valide", Toast.LENGTH_SHORT).show()
         }
     }
 }
