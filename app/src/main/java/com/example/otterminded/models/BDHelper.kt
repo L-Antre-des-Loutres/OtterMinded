@@ -45,8 +45,10 @@ class BDHelper(context: Context) :
         CREATE TABLE commentaire (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             id_question INTEGER NOT NULL,
+            id_utilisateur INTEGER NOT NULL,
             commentaire TEXT NOT NULL,
-            FOREIGN KEY(id_question) REFERENCES question(id)
+            FOREIGN KEY(id_question) REFERENCES question(id),
+            FOREIGN KEY(id_utilisateur) REFERENCES utilisateur(id)
         )
     """.trimIndent()
         db.execSQL(createTableCommentaire)
