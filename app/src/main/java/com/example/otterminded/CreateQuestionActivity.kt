@@ -1,13 +1,14 @@
+package com.example.otterminded
+
 import android.os.Bundle
 import android.widget.Button
 import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
-import com.example.otterminded.R
 import com.google.android.material.textfield.TextInputEditText
 import com.example.otterminded.models.DAOQuestion
 
 
-class AddQuestionActivity : AppCompatActivity() {
+class CreateQuestionActivity : AppCompatActivity() {
 
     private lateinit var themeSpinner: Spinner
     private lateinit var questionEditText: TextInputEditText
