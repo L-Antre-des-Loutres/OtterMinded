@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.otterminded.CommentaireActivity
+import com.example.otterminded.UpdateQuestionActivity
 import com.example.otterminded.databinding.FragmentHomeBinding
 import com.example.otterminded.models.DAOQuestion
 
@@ -36,7 +37,7 @@ class HomeFragment : Fragment() {
         val dailyQuestion: TextView = binding.dailyQuestion
 
         // ID de la question que vous souhaitez afficher dans TextView
-        val questionId: Long = 1 // Mettez l'ID de la question que vous souhaitez afficher ici
+        val questionId: Long = 2 // Mettez l'ID de la question que vous souhaitez afficher ici
 
         // Créez une instance de DAOQuestion
         val daoQuestion = DAOQuestion(requireContext())
@@ -52,12 +53,9 @@ class HomeFragment : Fragment() {
 
         // Ajout d'un OnClickListener au bouton
         commentIcon.setOnClickListener {
-            // Intent pour démarrer l'activité de commentaire
+
             val intent = Intent(requireContext(), CommentaireActivity::class.java)
-
-            // Ajouter la variable questionId en tant que données supplémentaires à l'intent
-            intent.putExtra("question_id", questionId)
-
+            intent.putExtra("question_id", questionId) // Passage de l'ID de la question à l'activité UpdateQuestionActivity
             startActivity(intent)
         }
 

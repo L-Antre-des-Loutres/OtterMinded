@@ -1,18 +1,32 @@
 package com.example.otterminded
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import com.example.otterminded.R
 import com.example.otterminded.ui.main.CommentaireFragment
 
 class CommentaireActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.fragment_commentaire)
-        // Récupérer l'intent qui a démarré cette activité
-        val intent = intent
+        setContentView(R.layout.activity_commentaire)
 
-        // Récupérer la variable questionId de l'intent
-        val questionId = intent.getLongExtra("question_id", 0)
+        // Récupérer les données reçues par l'intent
+        val questionId = intent.getLongExtra("question_id", -1)
+
+        // Créer une instance de votre fragment
+        val fragment = CommentaireFragment()
+
+        // Créer un Bundle pour les arguments
+        val args = Bundle()
+        args.putLong("question_id", questionId)
+
+        // Ajouter les arguments au fragment
+        fragment.arguments = args
+
+        // Remplacer le fragment dans votre activité
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.container_commentaire, fragment)
+            .commit()
     }
 }

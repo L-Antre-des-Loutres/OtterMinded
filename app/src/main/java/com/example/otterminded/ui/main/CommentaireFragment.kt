@@ -4,10 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import com.example.otterminded.models.DAOQuestion
 import com.example.otterminded.databinding.FragmentCommentaireBinding
+import com.example.otterminded.models.DAOQuestion
 
 class CommentaireFragment : Fragment() {
 
@@ -21,14 +20,11 @@ class CommentaireFragment : Fragment() {
         binding = FragmentCommentaireBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        // Récupérer l'intent qui a démarré l'activité associée au fragment
-        val intent = requireActivity().intent
+        // Récupérer l'ID de la question depuis les arguments du fragment
+        val questionId = arguments?.getLong("question_id", -1) ?: -1
 
-        // Vérifier si l'intent est non nul et si l'intent contient l'extra "question_id"
-        if (intent != null && intent.hasExtra("question_id")) {
-            // Récupérer la valeur de l'ID à partir de l'intent
-            val questionId = intent.getLongExtra("question_id", -1)
-
+        // Vérifier si l'ID de la question est valide
+        if (questionId != (-1).toLong()) {
             // Créer une instance de DAOQuestion
             val daoQuestion = DAOQuestion(requireContext())
 
@@ -38,8 +34,7 @@ class CommentaireFragment : Fragment() {
             // Afficher la question dans TextView
             binding.questionComment.text = question?.question ?: "Question non trouvée"
         } else {
-            // Gérer le cas où l'ID n'a pas été passé à l'activité
-            // Vous pouvez afficher un message d'erreur, retourner en arrière ou effectuer une autre action appropriée
+            // Gérer le cas où l'ID n'a pas été passé au fragment
             binding.questionComment.text = "Question non trouvée"
         }
 
