@@ -57,4 +57,14 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.418" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/vu_commentaire"
+        android:layout_width="252dp"
+        android:layout_height="270dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.856" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

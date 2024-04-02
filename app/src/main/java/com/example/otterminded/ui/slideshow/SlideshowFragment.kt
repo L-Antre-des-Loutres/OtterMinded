@@ -1,6 +1,5 @@
 package com.example.otterminded.ui.slideshow
 
-import QuestionAdapter
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -17,6 +16,7 @@ import com.example.otterminded.R
 import com.example.otterminded.UpdateQuestionActivity
 import com.example.otterminded.databinding.FragmentSlideshowBinding
 import com.example.otterminded.models.DAOInitializer
+import com.example.otterminded.support.QuestionAdapter
 
 class SlideshowFragment : Fragment() {
 

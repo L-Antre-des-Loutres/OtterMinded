@@ -8,17 +8,15 @@
     tools:context=".ui.main.CommentaireFragment">
 
     <EditText
-        android:id="@+id/editTextText3"
-        android:layout_width="wrap_content"
+        android:id="@+id/editTextCommentaire"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="text"
-        android:text="Votre Commentaire"
+        android:layout_marginBottom="356dp"
+        android:hint="Entrez votre commentaire"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView5"
@@ -43,11 +41,11 @@
         tools:layout_editor_absoluteY="116dp" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/buttonEnvoyerCommentaire"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="124dp"
-        android:text="Envoyer le commentaire"
+        android:layout_marginBottom="160dp"
+        android:text="Envoyer"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

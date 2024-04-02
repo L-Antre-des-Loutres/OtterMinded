@@ -10,7 +10,6 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.otterminded.CommentaireActivity
-import com.example.otterminded.UpdateQuestionActivity
 import com.example.otterminded.databinding.FragmentHomeBinding
 import com.example.otterminded.models.DAOQuestion
 

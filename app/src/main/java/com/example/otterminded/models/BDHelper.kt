@@ -13,7 +13,10 @@ class BDHelper(context: Context) :
         createTableQuestion(db)
         insertDefaultData(db)
         createTableUtilisateur(db)
+        createTableCommentaire(db)
+        insertDefaultUtilisateur(db)
     }
+
 
     private fun createTableQuestion(db: SQLiteDatabase) {
         val createTableQuestion = """

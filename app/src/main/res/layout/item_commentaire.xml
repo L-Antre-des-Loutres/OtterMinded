@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <!-- Layout pour encapsuler l'ID de la question, l'ID de l'utilisateur et le commentaire -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/clickable_border"
+        android:clickable="true"
+        android:padding="8dp"
+        android:layout_marginBottom="8dp">
+
+        <!-- TextView pour l'ID de la question -->
+        <TextView
+            android:id="@+id/idQuestionTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ID de la question" />
+
+        <!-- TextView pour l'ID de l'utilisateur -->
+        <TextView
+            android:id="@+id/idUtilisateurTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ID de l'utilisateur" />
+
+        <!-- TextView pour le commentaire -->
+        <TextView
+            android:id="@+id/commentaireTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Commentaire" />
+
+        <!-- Bouton "Edit" -->
+        <Button
+            android:id="@+id/editButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edit" />
+    </LinearLayout>
+</LinearLayout>
