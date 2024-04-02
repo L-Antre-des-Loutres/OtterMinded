@@ -40,6 +40,19 @@ class BDHelper(context: Context) :
         }
     }
 
+    private fun createTableCommentaire(db: SQLiteDatabase) {
+        val createTableCommentaire = """
+        CREATE TABLE commentaire (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            id_question INTEGER NOT NULL,
+            commentaire TEXT NOT NULL,
+            FOREIGN KEY(id_question) REFERENCES question(id)
+        )
+    """.trimIndent()
+        db.execSQL(createTableCommentaire)
+    }
+
+
     private fun createTableUtilisateur(db: SQLiteDatabase) {
         val createTableUtilisateur = """
             CREATE TABLE utilisateur (
