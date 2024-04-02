@@ -1,11 +1,13 @@
 package com.example.otterminded
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputEditText
 import com.example.otterminded.models.DAOQuestion
+import com.example.otterminded.ui.slideshow.SlideshowFragment
 
 
 class CreateQuestionActivity : AppCompatActivity() {
@@ -37,6 +39,8 @@ class CreateQuestionActivity : AppCompatActivity() {
                 if (newRowId != -1L) {
                     // Successfully added question
                     // You can add further handling here if needed
+                    val intent = Intent(this, SlideshowFragment::class.java)
+                    startActivity(intent)
                     finish() // Finish the activity after adding the question
                 } else {
                     // Failed to add question
