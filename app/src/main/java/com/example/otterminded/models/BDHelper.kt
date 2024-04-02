@@ -67,6 +67,11 @@ class BDHelper(context: Context) :
         db.execSQL(createTableUtilisateur)
     }
 
+    private fun insertDefaultUtilisateur(db: SQLiteDatabase) {
+        db.execSQL("INSERT INTO utilisateur (nom, email, mot_de_passe) VALUES ('Coco', 'coco@coco.com', 'coco')")
+        db.execSQL("INSERT INTO utilisateur (nom, email, mot_de_passe) VALUES ('User', 'user@user.com', 'user')")
+    }
+
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         db.execSQL("DROP TABLE IF EXISTS question")
         db.execSQL("DROP TABLE IF EXISTS utilisateur")
