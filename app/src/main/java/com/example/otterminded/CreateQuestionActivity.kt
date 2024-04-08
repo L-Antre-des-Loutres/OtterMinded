@@ -34,7 +34,7 @@ class CreateQuestionActivity : AppCompatActivity() {
             val theme = themeSpinner.selectedItem.toString()
             val questionText = questionEditText.text.toString()
 
-            if (theme.isNotEmpty() && questionText.isNotEmpty()) {
+            if (theme.isNotEmpty() && questionText.isNotEmpty() && questionText.endsWith("?")) {
                 val newRowId = daoQuestion.addQuestion(theme, questionText)
                 if (newRowId != -1L) {
                     // Successfully added question
@@ -47,9 +47,7 @@ class CreateQuestionActivity : AppCompatActivity() {
                     // You can add further handling here if needed
                 }
             } else {
-                // Theme or question text is empty
+                // Theme, question text is empty, or question does not end with "?"
                 // You can add further handling here if needed
             }
-        }
-    }
-}
+        }}}
