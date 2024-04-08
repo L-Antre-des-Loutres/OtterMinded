@@ -66,20 +66,24 @@ class DAOCommentaire(context: Context) {
         return commentaire
     }
 
-    fun getCommentaireByQuestionId(idQuestion: Long): Commentaire? {
+    fun getCommentaireByQuestionId(idQuestion: Long): List<Commentaire> {
         val db = dbHelper.readableDatabase
         val cursor = db.rawQuery("SELECT * FROM commentaire WHERE id_question = ?", arrayOf(idQuestion.toString()))
-        var commentaire: Commentaire? = null
-        if (cursor.moveToFirst()) {
+        val commentaires = mutableListOf<Commentaire>()
+
+        while (cursor.moveToNext()) {
             val id = cursor.getLong(cursor.getColumnIndex("id"))
             val idQuestion = cursor.getLong(cursor.getColumnIndex("id_question"))
             val idUtilisateur = cursor.getLong(cursor.getColumnIndex("id_utilisateur"))
             val commentaireText = cursor.getString(cursor.getColumnIndex("commentaire"))
-            commentaire = Commentaire(id, idQuestion, idUtilisateur, commentaireText)
+            val commentaire = Commentaire(id, idQuestion, idUtilisateur, commentaireText)
+            commentaires.add(commentaire)
         }
+
         cursor.close()
         db.close()
-        return commentaire
+        return commentaires
     }
+
 
 }

@@ -1,5 +1,6 @@
 package com.example.otterminded.ui.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,10 +10,13 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.otterminded.MainActivity
 import com.example.otterminded.R
 import com.example.otterminded.databinding.FragmentCommentaireBinding
 import com.example.otterminded.models.DAOCommentaire
 import com.example.otterminded.models.DAOQuestion
+import com.example.otterminded.ui.home.HomeFragment
+import com.example.otterminded.ui.slideshow.SlideshowFragment
 
 class CommentaireFragment : Fragment() {
 
@@ -62,7 +66,9 @@ class CommentaireFragment : Fragment() {
             // Vérifier si l'opération a réussi
             if (newRowId != -1L) {
                 // Afficher un message de succès ou effectuer d'autres actions
-                Toast.makeText(requireContext(), "Commentaire ajouté avec succès!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Commentaire ajouté avec succès! La loutre te remercie pour cela.", Toast.LENGTH_SHORT).show()
+                val intent = Intent(requireContext(), MainActivity::class.java) // Remplacez MainActivity par le nom de votre activité
+                startActivity(intent)
             } else {
                 // Afficher un message d'erreur ou effectuer d'autres actions si nécessaire
                 Toast.makeText(requireContext(), "Erreur lors de l'ajout du commentaire.", Toast.LENGTH_SHORT).show()
