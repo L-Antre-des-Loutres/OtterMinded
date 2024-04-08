@@ -41,7 +41,6 @@ class CreateQuestionActivity : AppCompatActivity() {
                     // You can add further handling here if needed
                     val intent = Intent(this, SlideshowFragment::class.java)
                     startActivity(intent)
-                    finish() // Finish the activity after adding the question
                 } else {
                     // Failed to add question
                     // You can add further handling here if needed
