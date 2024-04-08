@@ -65,6 +65,18 @@ class DAOQuestion(context: Context) {
         db.close()
         return rowsAffected
     }
+
+    fun getNbQuestion(): Int {
+        val db = dbHelper.readableDatabase
+        val cursor = db.rawQuery("SELECT COUNT(*) FROM question", null)
+        var count = 0
+        if (cursor.moveToFirst()) {
+            count = cursor.getInt(0)
+        }
+        cursor.close()
+        db.close()
+        return count
+    }
 }
 
 

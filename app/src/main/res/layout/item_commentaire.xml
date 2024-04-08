@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -6,40 +5,46 @@
 
     <!-- Layout pour encapsuler l'ID de la question, l'ID de l'utilisateur et le commentaire -->
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/clickable_border"
         android:clickable="true"
-        android:padding="8dp"
-        android:layout_marginBottom="8dp">
+        android:orientation="horizontal"
+        android:padding="8dp">
 
-        <!-- TextView pour l'ID de la question -->
-        <TextView
-            android:id="@+id/idQuestionTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ID de la question" />
+        <!-- ImageView pour l'icône à gauche -->
+        <ImageView
+            android:id="@+id/avatarImageView"
+            android:layout_width="54dp"
+            android:layout_height="50dp"
+            android:contentDescription="Avatar"
+            android:src="@drawable/icone_avatar" />
 
-        <!-- TextView pour l'ID de l'utilisateur -->
-        <TextView
-            android:id="@+id/idUtilisateurTextView"
-            android:layout_width="wrap_content"
+        <!-- ScrollView encapsulant le TextView pour le commentaire -->
+        <ScrollView
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="ID de l'utilisateur" />
+            android:layout_weight="1">
 
-        <!-- TextView pour le commentaire -->
-        <TextView
-            android:id="@+id/commentaireTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Commentaire" />
+            <TextView
+                android:id="@+id/commentaireTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Commentaire très long et qui nécessite un défilement pour être lu entièrement. Commentaire très long et qui nécessite un défilement pour être lu entièrement. Commentaire très long et qui nécessite un défilement pour être lu entièrement. Commentaire très long et qui nécessite un défilement pour être lu entièrement. Commentaire très long et qui nécessite un défilement pour être lu entièrement."
+                android:textSize="14sp" />
+        </ScrollView>
 
-        <!-- Bouton "Edit" -->
-        <Button
-            android:id="@+id/editButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Edit" />
     </LinearLayout>
+
+    <!-- TextView pour le pseudo anonyme -->
+    <TextView
+        android:id="@+id/pseudoTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="Anonyme"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="12sp" />
+
 </LinearLayout>
