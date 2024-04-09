@@ -51,6 +51,7 @@ dependencies {
     implementation(libs.androidx.mediarouter)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.fragment.ktx)
+    implementation("androidx.core:core-ktx:2.2.0")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
