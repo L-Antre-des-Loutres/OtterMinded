@@ -97,7 +97,7 @@ class MainActivity : AppCompatActivity() {
 
         // Notification du 17h
         val hourOfDay = 17 // Heure souhaitée en heures du jour
-        val minuteOfDay = 30
+        val minuteOfDay = 40
         NotificationScheduler.scheduleNotification(this, hourOfDay, minuteOfDay)
 
     }

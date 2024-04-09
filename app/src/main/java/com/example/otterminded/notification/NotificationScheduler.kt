@@ -62,8 +62,8 @@ class NotificationScheduler : BroadcastReceiver() {
         val notificationBuilder = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             Notification.Builder(context, CHANNEL_ID)
                 .setSmallIcon(R.drawable.notification_icon)
-                .setContentTitle("Titre de la notification")
-                .setContentText("Contenu de la notification")
+                .setContentTitle("HoraireMinded")
+                .setContentText("17h40 touche ton nez")
         } else {
             TODO("VERSION.SDK_INT < O")
         }
