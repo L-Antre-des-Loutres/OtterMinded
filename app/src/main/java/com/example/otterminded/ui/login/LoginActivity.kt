@@ -32,7 +32,7 @@ class LoginActivity : AppCompatActivity() {
                 if (validateUser(email, password)) {
                     // L'utilisateur est authentifié
                     Toast.makeText(this, "Connexion réussie", Toast.LENGTH_SHORT).show()
-                    // Vous pouvez démarrer une nouvelle activité ou effectuer d'autres actions ici
+                    // Redirection ici
                 } else {
                     Toast.makeText(this, "Email ou mot de passe incorrect", Toast.LENGTH_SHORT).show()
                 }
