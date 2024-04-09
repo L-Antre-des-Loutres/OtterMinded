@@ -8,7 +8,6 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.view.Menu
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
@@ -20,6 +19,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.otterminded.databinding.ActivityMainBinding
+import com.example.otterminded.notification.NotificationScheduler
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 
@@ -73,7 +73,7 @@ class MainActivity : AppCompatActivity() {
         val builder = NotificationCompat.Builder(this, CHANNEL_ID)
             .setSmallIcon(R.drawable.notification_icon)
             .setContentTitle(getString(R.string.channel_name))
-            .setContentText("GROU GROU GROU (Lance l'application)")
+            .setContentText("GROU GROU GROU (Quitte pas l'application)")
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
 
         // Afficher la notification
@@ -94,6 +94,12 @@ class MainActivity : AppCompatActivity() {
             }
             notify(1, builder.build())
         }
+
+        // Notification du 17h
+        val hourOfDay = 17 // Heure souhaitée en heures du jour
+        val minuteOfDay = 30
+        NotificationScheduler.scheduleNotification(this, hourOfDay, minuteOfDay)
+
     }
         private fun createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because
