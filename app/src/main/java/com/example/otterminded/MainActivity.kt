@@ -8,6 +8,7 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.view.Menu
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
@@ -24,6 +25,7 @@ import com.google.android.material.snackbar.Snackbar
 
 
 val CHANNEL_ID = "1";
+val RC_NOTIFICATIONS = 99
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
@@ -59,6 +61,12 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        // Gestion des premissions des notifications
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+            requestPermissions(arrayOf(Manifest.permission.POST_NOTIFICATIONS), RC_NOTIFICATIONS)
+        }
 
         createNotificationChannel() // Création du canal de notification
 
@@ -102,6 +110,24 @@ class MainActivity : AppCompatActivity() {
                 getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(channel)
         }
+    }
+
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        /* Fonction de test si les notifications sont actives ou non.
+        if (requestCode == RC_NOTIFICATIONS) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "Notification autorisé sur l'appareil", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "Notification refusé sur l'appareil", Toast.LENGTH_SHORT).show()
+            }
+        }*/
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
