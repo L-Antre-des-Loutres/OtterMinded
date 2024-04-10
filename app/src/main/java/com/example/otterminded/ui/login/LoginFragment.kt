@@ -24,8 +24,11 @@ class LoginFragment : Fragment() {
         val emailEditText = view.findViewById<EditText>(R.id.emailEditText)
         val passwordEditText = view.findViewById<EditText>(R.id.passwordEditText)
         val loginButton = view.findViewById<Button>(R.id.loginButton)
+        val registerButton = view.findViewById<Button>(R.id.registerButton)
 
         loginButton.setOnClickListener {
+            // Ecouteur pour le bouton de login
+
             // toString() s'assure que les valeurs sont des strings, et trim() que les espaces sont retiré
             val email = emailEditText.text.toString().trim()
             val password = passwordEditText.text.toString().trim()
@@ -45,6 +48,26 @@ class LoginFragment : Fragment() {
             }
         }
 
+        registerButton.setOnClickListener {
+            // Ecouteur pour le bouton d'enregistrement
+
+            // toString() s'assure que les valeurs sont des strings, et trim() que les espaces sont retiré
+            val email = emailEditText.text.toString().trim()
+            val password = passwordEditText.text.toString().trim()
+
+            if (email.isNotEmpty() && password.isNotEmpty()) {
+                if (doesAccountExist(email, password)) {
+                    // Un utilisateur avec ce mail éxiste déjà, enregistrement échoué
+                    Toast.makeText(requireContext(), "Un compte éxiste déjà avec cette Email : "+email, Toast.LENGTH_SHORT).show()
+                } else {
+                    // Pas d'utilisateur avec ce mail éxiste déjà, enregistrement ajout de l'utilisateur à la table
+                    Toast.makeText(requireContext(), "Compte crée avec : "+email+". Tenter de vous connecter!", Toast.LENGTH_SHORT).show()
+                }
+
+            }
+
+        }
+
         afficherUtilisateurs()
 
         return view
@@ -61,6 +84,22 @@ class LoginFragment : Fragment() {
             return true
         } else {
             // false : la connexion a échoué, aucun utilisateurs trouvés
+            return false
+        }
+    }
+
+    private fun doesAccountExist(email: String, password: String): Boolean {
+        // Creation du compte si un utilisateur avec ce mail n'existe pas
+
+        val daoUser = DAOUtilisateur(requireContext())
+        val user = daoUser.getUserByEmail(email) // Appel de la fonction getUserByEmail()
+
+        if (user != null) {
+            // true : utilisateur trouvé
+            return true
+        } else {
+            // false : aucun utilisateurs trouvés, céation du compte
+            val newUserId = daoUser.addUser(email, email, password)
             return false
         }
     }

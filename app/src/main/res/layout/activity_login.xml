@@ -26,6 +26,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Se connecter"
-        android:layout_below="@id/passwordEditText"/>
+        android:layout_below="@id/passwordEditText"
+        android:layout_marginBottom="16dp"/>
+
+    <Button
+        android:id="@+id/registerButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="S'enregistrer"
+        android:layout_below="@id/loginButton"/>
 
 </RelativeLayout>

@@ -55,6 +55,21 @@ class DAOUtilisateur(context: Context) {
         return users
     }
 
+    fun getUserByEmail(email: String): Utilisateur? {
+        val db = dbHelper.readableDatabase
+        val cursor = db.rawQuery("SELECT * FROM utilisateur WHERE email = ?", arrayOf(email))
+        var utilisateur: Utilisateur? = null
+        if (cursor.moveToFirst()) {
+            val id = cursor.getLong(cursor.getColumnIndex("id"))
+            val nom = cursor.getString(cursor.getColumnIndex("nom"))
+            val motDePasse = cursor.getString(cursor.getColumnIndex("mot_de_passe"))
+            utilisateur = Utilisateur(id, nom, email, motDePasse)
+        }
+        cursor.close()
+        db.close()
+        return utilisateur
+    }
+
     fun getUserByUsername(username: String): Utilisateur? {
         val db = dbHelper.readableDatabase
         val cursor = db.rawQuery("SELECT * FROM utilisateur WHERE nom = ?", arrayOf(username))
