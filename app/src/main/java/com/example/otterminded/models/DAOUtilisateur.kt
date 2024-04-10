@@ -19,6 +19,23 @@ class DAOUtilisateur(context: Context) {
         return newRowId
     }
 
+    fun tryLogin(username: String, password: String): Utilisateur? {
+        val db = dbHelper.readableDatabase
+        val cursor = db.rawQuery(
+            "SELECT * FROM utilisateur WHERE nom = ? AND mot_de_passe = ?",
+            arrayOf(username, password)
+        )
+        var utilisateur: Utilisateur? = null
+        if (cursor.moveToFirst()) {
+            val id = cursor.getLong(cursor.getColumnIndex("id"))
+            val email = cursor.getString(cursor.getColumnIndex("email"))
+            utilisateur = Utilisateur(id, username, email, password)
+        }
+        cursor.close()
+        db.close()
+        return utilisateur
+    }
+
     fun getAllUsers(): ArrayList<Utilisateur> {
         val users = ArrayList<Utilisateur>()
         val db = dbHelper.readableDatabase
@@ -36,6 +53,21 @@ class DAOUtilisateur(context: Context) {
         cursor.close()
         db.close()
         return users
+    }
+
+    fun getUserByUsername(username: String): Utilisateur? {
+        val db = dbHelper.readableDatabase
+        val cursor = db.rawQuery("SELECT * FROM utilisateur WHERE nom = ?", arrayOf(username))
+        var utilisateur: Utilisateur? = null
+        if (cursor.moveToFirst()) {
+            val id = cursor.getLong(cursor.getColumnIndex("id"))
+            val email = cursor.getString(cursor.getColumnIndex("email"))
+            val motDePasse = cursor.getString(cursor.getColumnIndex("mot_de_passe"))
+            utilisateur = Utilisateur(id, username, email, motDePasse)
+        }
+        cursor.close()
+        db.close()
+        return utilisateur
     }
 
     fun getUserById(id: Long): Utilisateur? {

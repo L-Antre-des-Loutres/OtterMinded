@@ -9,6 +9,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.otterminded.R
+import com.example.otterminded.models.DAOUtilisateur
 
 class LoginFragment : Fragment() {
 
@@ -29,13 +30,13 @@ class LoginFragment : Fragment() {
             val password = passwordEditText.text.toString().trim()
 
             if (email.isNotEmpty() && password.isNotEmpty()) {
-                if (validateUser(email, password)) {
+                if (validateUsername(email)) {
                     // L'utilisateur est authentifié
                     Toast.makeText(requireContext(), "Connexion réussie", Toast.LENGTH_SHORT).show()
                     // Redirection ici
                 } else {
                     // Auth échoué
-                    Toast.makeText(requireContext(), "Email ou mot de passe incorrect", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Email ou MDP incorrect : Mail : "+email+" MDP : "+password, Toast.LENGTH_SHORT).show()
                 }
             } else {
                 // Tous les champs ne sont pas compelt
@@ -47,8 +48,32 @@ class LoginFragment : Fragment() {
     }
 
     private fun validateUser(email: String, password: String): Boolean {
-        // Logic de la connexion : vérification de mdp
+        // Logic de la connexion : vérification de email + mdp
 
-        return false
+        val daoUser = DAOUtilisateur(requireContext()) // Instanciation du DAOUtilisateur
+        val user = daoUser.tryLogin(email, password) // Appel de la fonction tryLogin()
+
+        if (user != null) {
+            // true : utilisateur trouvé, la connexion a réussi
+            return true
+        } else {
+            // false : la connexion a échoué, aucun utilisateurs trouvés
+            return false
+        }
+    }
+
+    private fun validateUsername(email: String): Boolean {
+        // Logic de la connexion : vérification de username
+
+        val daoUser = DAOUtilisateur(requireContext())
+        val user = daoUser.getUserByUsername(email) // Appel de la fonction getUserByUsername()
+
+        if (user != null) {
+            // true : utilisateur trouvé
+            return true
+        } else {
+            // false : aucun utilisateurs trouvés
+            return false
+        }
     }
 }
