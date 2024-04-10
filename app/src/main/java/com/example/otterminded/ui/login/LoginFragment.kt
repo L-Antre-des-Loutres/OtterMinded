@@ -31,9 +31,9 @@ class LoginFragment : Fragment() {
             val password = passwordEditText.text.toString().trim()
 
             if (email.isNotEmpty() && password.isNotEmpty()) {
-                if (validateUsername(email)) {
+                if (validateUser(email, password)) {
                     // L'utilisateur est authentifié
-                    Toast.makeText(requireContext(), "Connexion réussie", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Connexion réussie! Bienvenue!", Toast.LENGTH_SHORT).show()
                     // Redirection ici
                 } else {
                     // Auth échoué
@@ -61,21 +61,6 @@ class LoginFragment : Fragment() {
             return true
         } else {
             // false : la connexion a échoué, aucun utilisateurs trouvés
-            return false
-        }
-    }
-
-    private fun validateUsername(email: String): Boolean {
-        // Logic de la connexion : vérification de username
-
-        val daoUser = DAOUtilisateur(requireContext())
-        val user = daoUser.getUserByUsername(email) // Appel de la fonction getUserByUsername()
-
-        if (user != null) {
-            // true : utilisateur trouvé
-            return true
-        } else {
-            // false : aucun utilisateurs trouvés
             return false
         }
     }

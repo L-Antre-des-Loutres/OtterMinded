@@ -19,17 +19,17 @@ class DAOUtilisateur(context: Context) {
         return newRowId
     }
 
-    fun tryLogin(username: String, password: String): Utilisateur? {
+    fun tryLogin(email: String, password: String): Utilisateur? {
         val db = dbHelper.readableDatabase
         val cursor = db.rawQuery(
-            "SELECT * FROM utilisateur WHERE nom = ? AND mot_de_passe = ?",
-            arrayOf(username, password)
+            "SELECT * FROM utilisateur WHERE email = ? AND mot_de_passe = ?",
+            arrayOf(email, password)
         )
         var utilisateur: Utilisateur? = null
         if (cursor.moveToFirst()) {
             val id = cursor.getLong(cursor.getColumnIndex("id"))
             val email = cursor.getString(cursor.getColumnIndex("email"))
-            utilisateur = Utilisateur(id, username, email, password)
+            utilisateur = Utilisateur(id, email, email, password)
         }
         cursor.close()
         db.close()
