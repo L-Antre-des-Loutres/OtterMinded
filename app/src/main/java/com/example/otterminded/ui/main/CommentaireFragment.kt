@@ -15,7 +15,6 @@ import com.example.otterminded.R
 import com.example.otterminded.databinding.FragmentCommentaireBinding
 import com.example.otterminded.models.DAOCommentaire
 import com.example.otterminded.models.DAOQuestion
-import com.example.otterminded.ui.home.HomeFragment
 import com.example.otterminded.ui.slideshow.SlideshowFragment
 
 class CommentaireFragment : Fragment() {

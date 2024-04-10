@@ -4,10 +4,12 @@ import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.view.Menu
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
@@ -19,7 +21,8 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.otterminded.databinding.ActivityMainBinding
-import com.example.otterminded.notification.NotificationScheduler
+import com.example.otterminded.service.DailyQuestionService
+import com.example.otterminded.service.NotificationScheduler
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 
@@ -34,6 +37,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        startService(Intent(this, DailyQuestionService::class.java))
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -126,14 +131,14 @@ class MainActivity : AppCompatActivity() {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
-        /* Fonction de test si les notifications sont actives ou non.
+        /* Fonction de test si les notifications sont actives ou non. */
         if (requestCode == RC_NOTIFICATIONS) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(this, "Notification autorisé sur l'appareil", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(this, "Notification refusé sur l'appareil", Toast.LENGTH_SHORT).show()
             }
-        }*/
+        } //*/
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

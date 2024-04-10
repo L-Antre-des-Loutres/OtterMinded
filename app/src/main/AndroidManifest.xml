@@ -36,7 +36,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <receiver android:name=".notification.NotificationScheduler" />
+        <receiver android:name=".service.NotificationScheduler" />
+        <service android:name=".service.DailyQuestionService" />
+
     </application>
 
 </manifest>

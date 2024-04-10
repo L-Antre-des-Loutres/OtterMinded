@@ -1,4 +1,4 @@
-package com.example.otterminded.notification
+package com.example.otterminded.service
 
 import android.app.AlarmManager
 import android.app.Notification
@@ -9,7 +9,6 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import androidx.annotation.RequiresApi
 import com.example.otterminded.R
 import java.util.*
 

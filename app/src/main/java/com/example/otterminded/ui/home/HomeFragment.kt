@@ -15,9 +15,10 @@ import com.example.otterminded.CommentaireActivity
 import com.example.otterminded.databinding.FragmentHomeBinding
 import com.example.otterminded.models.DAOCommentaire
 import com.example.otterminded.models.DAOQuestion
+import com.example.otterminded.service.DailyQuestionService
 import com.example.otterminded.support.CommentaireAdapter
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), DailyQuestionService.QuestionListener {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
@@ -39,55 +40,25 @@ class HomeFragment : Fragment() {
 
         val dailyQuestion: TextView = binding.dailyQuestion
 
-        // Créez une instance de DAOQuestion
+        // Set up listener for receiving daily question
+        val serviceIntent = Intent(requireContext(), DailyQuestionService::class.java)
+        requireContext().startService(serviceIntent)
+
+        // Initialize DAOQuestion
         val daoQuestion = DAOQuestion(requireContext())
 
-        // Get the total number of questions
-        val nbQuestion: Int = daoQuestion.getNbQuestion()
-
-        // Calculate a unique question ID based on current time
-        val currentTimeMillis = System.currentTimeMillis()
-
-        // Calculate the number of milliseconds in 24 hours
-        val millisecondsIn24Hours = 24 * 60 * 60 * 1000
-
-        // Calculate the number of days since epoch
-        val daysSinceEpoch = currentTimeMillis / millisecondsIn24Hours
-
-        // Use the number of days since epoch to determine the question ID
-        val questionId: Long = daysSinceEpoch % nbQuestion
-
-        // Appeler la fonction getQuestionById sur cette instance
+        // Get today's question
+        val questionId = getQuestionId()
         val question = daoQuestion.getQuestionById(questionId)
 
-        // Afficher la question dans TextView
-        dailyQuestion.text = question?.question ?: "Question non trouvée"
+        // Display the question in TextView
+        dailyQuestion.text = question?.question ?: "Question not found"
 
-        // Référence du bouton dans le layout
-        val commentIcon: ImageView = binding.commentIcon
+        // Set up RecyclerView for comments
+        setUpRecyclerView(questionId)
 
-        // Créer une instance de DAOCommentaire
-        val daoCommentaire = DAOCommentaire(requireContext())
-
-        // Obtenir les commentaires de la question
-        val commentaires = daoCommentaire.getCommentaireByQuestionId(questionId)
-
-        // Référence au RecyclerView dans votre layout (vu_commentaire)
-        val recyclerViewCommentaire: RecyclerView = binding.vuCommentaire
-
-        // Créer un adaptateur CommentaireAdapter en passant la liste des commentaires
-        val commentaireAdapter = CommentaireAdapter(commentaires)
-
-        // Associer l'adaptateur au RecyclerView
-        recyclerViewCommentaire.layoutManager = LinearLayoutManager(requireContext())
-        recyclerViewCommentaire.adapter = commentaireAdapter
-
-        // Ajout d'un OnClickListener au bouton
-        commentIcon.setOnClickListener {
-            val intent = Intent(requireContext(), CommentaireActivity::class.java)
-            intent.putExtra("question_id", questionId) // Passage de l'ID de la question à l'activité UpdateQuestionActivity
-            startActivity(intent)
-        }
+        // Set up comment icon click listener
+        setUpCommentIconClickListener(questionId)
 
         return root
     }
@@ -95,5 +66,42 @@ class HomeFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    // Function to get question ID for the current day
+    private fun getQuestionId(): Long {
+        val daoQuestion = DAOQuestion(requireContext())
+        val nbQuestion: Int = daoQuestion.getNbQuestion()
+        val currentTimeMillis = System.currentTimeMillis()
+        val millisecondsIn24Hours = 24 * 60 * 60 * 1000
+        val daysSinceEpoch = currentTimeMillis / millisecondsIn24Hours
+        return daysSinceEpoch % nbQuestion
+    }
+
+    // Function to set up RecyclerView for comments
+    private fun setUpRecyclerView(questionId: Long) {
+        val daoCommentaire = DAOCommentaire(requireContext())
+        val commentaires = daoCommentaire.getCommentaireByQuestionId(questionId)
+        val recyclerViewCommentaire: RecyclerView = binding.vuCommentaire
+        val commentaireAdapter = CommentaireAdapter(commentaires)
+        recyclerViewCommentaire.layoutManager = LinearLayoutManager(requireContext())
+        recyclerViewCommentaire.adapter = commentaireAdapter
+    }
+
+    // Function to set up click listener for comment icon
+    private fun setUpCommentIconClickListener(questionId: Long) {
+        val commentIcon: ImageView = binding.commentIcon
+        commentIcon.setOnClickListener {
+            val intent = Intent(requireContext(), CommentaireActivity::class.java)
+            intent.putExtra("question_id", questionId)
+            startActivity(intent)
+        }
+    }
+
+    // Implementation of DailyQuestionService.QuestionListener
+    override fun onQuestionReceived(question: String) {
+        activity?.runOnUiThread {
+            binding.dailyQuestion.text = question
+        }
     }
 }
