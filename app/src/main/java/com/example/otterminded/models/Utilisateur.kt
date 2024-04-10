@@ -1,5 +1,8 @@
 package com.example.otterminded.models
 
-class Utilisateur(id: Long, nom: String, email: String, motDePasse: String) {
-
-}
+class Utilisateur(
+    val id: Long,
+    val nom: String,
+    val email: String,
+    val motDePasse: String
+)

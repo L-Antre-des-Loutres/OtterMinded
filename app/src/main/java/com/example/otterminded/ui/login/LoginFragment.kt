@@ -1,6 +1,7 @@
 package com.example.otterminded.ui.login
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,6 +45,8 @@ class LoginFragment : Fragment() {
             }
         }
 
+        afficherUtilisateurs()
+
         return view
     }
 
@@ -74,6 +77,20 @@ class LoginFragment : Fragment() {
         } else {
             // false : aucun utilisateurs trouvés
             return false
+        }
+    }
+
+    // Méthode où vous voulez afficher les utilisateurs
+    private fun afficherUtilisateurs() {
+        val daoUser = DAOUtilisateur(requireContext())
+
+        // Obtenez tous les utilisateurs
+        val utilisateurs = daoUser.getAllUsers()
+
+        // Parcourez la liste des utilisateurs et imprimez-les dans les logs
+        Log.d("AffichageUtilisateur", "Affichage des utilisateurs de la base:")
+        for (utilisateur in utilisateurs) {
+            Log.d("Utilisateur", "ID: ${utilisateur.id}, Nom: ${utilisateur.nom}, Email: ${utilisateur.email}, Mot de passe: ${utilisateur.motDePasse}")
         }
     }
 }
