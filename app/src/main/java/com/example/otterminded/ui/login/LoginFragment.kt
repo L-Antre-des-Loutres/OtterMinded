@@ -48,6 +48,7 @@ class LoginFragment : Fragment() {
 
     private fun validateUser(email: String, password: String): Boolean {
         // Logic de la connexion : vérification de mdp
+
         return false
     }
 }

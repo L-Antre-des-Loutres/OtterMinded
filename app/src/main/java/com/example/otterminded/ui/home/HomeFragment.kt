@@ -67,6 +67,8 @@ class HomeFragment : Fragment() {
         val commentIcon: ImageView = binding.commentIcon
 
         // Créer une instance de DAOCommentaire
+
+        /*
         val daoCommentaire = DAOCommentaire(requireContext())
 
         // Obtenir les commentaires de la question
@@ -81,6 +83,7 @@ class HomeFragment : Fragment() {
         // Associer l'adaptateur au RecyclerView
         recyclerViewCommentaire.layoutManager = LinearLayoutManager(requireContext())
         recyclerViewCommentaire.adapter = commentaireAdapter
+         */
 
         // Ajout d'un OnClickListener au bouton
         commentIcon.setOnClickListener {
