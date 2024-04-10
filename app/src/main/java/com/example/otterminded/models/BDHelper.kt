@@ -78,6 +78,7 @@ class BDHelper(context: Context) :
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         db.execSQL("DROP TABLE IF EXISTS question")
         db.execSQL("DROP TABLE IF EXISTS utilisateur")
+        db.execSQL("DROP TABLE IF EXISTS commentaire")
         onCreate(db)
     }
 }

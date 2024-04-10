@@ -25,7 +25,7 @@
             android:title="Paramètres"
             />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_login"
             android:icon="@drawable/ic_profil_64"
             android:title="Connexion"
             />
