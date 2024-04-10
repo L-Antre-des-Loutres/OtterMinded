@@ -4,7 +4,6 @@ import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -21,7 +20,6 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.otterminded.databinding.ActivityMainBinding
-import com.example.otterminded.service.DailyQuestionService
 import com.example.otterminded.service.NotificationScheduler
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
@@ -37,8 +35,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        startService(Intent(this, DailyQuestionService::class.java))
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)

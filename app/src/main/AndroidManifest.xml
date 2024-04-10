@@ -37,7 +37,6 @@
             </intent-filter>
         </activity>
         <receiver android:name=".service.NotificationScheduler" />
-        <service android:name=".service.DailyQuestionService" />
 
     </application>
 

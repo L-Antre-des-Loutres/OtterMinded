@@ -62,7 +62,7 @@ class NotificationScheduler : BroadcastReceiver() {
             Notification.Builder(context, CHANNEL_ID)
                 .setSmallIcon(R.drawable.notification_icon)
                 .setContentTitle("HoraireMinded")
-                .setContentText("17h40 touche ton nez")
+                .setContentText("17h40 touche ton nez, mais surtout passe un p'tit coup pour venir nous voir >:(")
         } else {
             TODO("VERSION.SDK_INT < O")
         }
