@@ -64,15 +64,16 @@ class BDHelper(context: Context) :
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 nom VARCHAR(30) NOT NULL,
                 email VARCHAR(50) NOT NULL,
-                mot_de_passe VARCHAR(30) NOT NULL
+                mot_de_passe VARCHAR(30) NOT NULL,
+                admin TINYINT NOT NULL DEFAULT 0
             )
         """.trimIndent()
         db.execSQL(createTableUtilisateur)
     }
 
     private fun insertDefaultUtilisateur(db: SQLiteDatabase) {
-        db.execSQL("INSERT INTO utilisateur (nom, email, mot_de_passe) VALUES ('Coco', 'coco@coco.com', 'coco')")
-        db.execSQL("INSERT INTO utilisateur (nom, email, mot_de_passe) VALUES ('a', 'a', 'a')")
+        db.execSQL("INSERT INTO utilisateur (nom, email, mot_de_passe) VALUES ('Coco', 'coco@coco.com', 'coco', 1)")
+        db.execSQL("INSERT INTO utilisateur (nom, email, mot_de_passe) VALUES ('a', 'a', 'a', 0)")
         db.execSQL("INSERT INTO utilisateur (nom, email, mot_de_passe) VALUES ('User', 'user@user.com', 'user')")
     }
 

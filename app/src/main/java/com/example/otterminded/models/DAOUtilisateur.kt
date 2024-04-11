@@ -29,7 +29,8 @@ class DAOUtilisateur(context: Context) {
         if (cursor.moveToFirst()) {
             val id = cursor.getLong(cursor.getColumnIndex("id"))
             val email = cursor.getString(cursor.getColumnIndex("email"))
-            utilisateur = Utilisateur(id, email, email, password)
+            val admin = cursor.getInt(cursor.getColumnIndex("admin"))
+            utilisateur = Utilisateur(id, email, email, password, admin)
         }
         cursor.close()
         db.close()
@@ -47,7 +48,8 @@ class DAOUtilisateur(context: Context) {
             val nom = cursor.getString(cursor.getColumnIndex("nom"))
             val email = cursor.getString(cursor.getColumnIndex("email"))
             val motDePasse = cursor.getString(cursor.getColumnIndex("mot_de_passe"))
-            val utilisateur = Utilisateur(id, nom, email, motDePasse)
+            val admin = cursor.getInt(cursor.getColumnIndex("admin"))
+            val utilisateur = Utilisateur(id, nom, email, motDePasse, admin)
             users.add(utilisateur)
         }
         cursor.close()
@@ -63,7 +65,8 @@ class DAOUtilisateur(context: Context) {
             val id = cursor.getLong(cursor.getColumnIndex("id"))
             val nom  = cursor.getString(cursor.getColumnIndex("nom"))
             val motDePasse = cursor.getString(cursor.getColumnIndex("mot_de_passe"))
-            utilisateur = Utilisateur(id, nom, email, motDePasse)
+            val admin = cursor.getInt(cursor.getColumnIndex("admin"))
+            utilisateur = Utilisateur(id, nom, email, motDePasse, admin)
         }
         cursor.close()
         db.close()
@@ -78,7 +81,8 @@ class DAOUtilisateur(context: Context) {
             val id = cursor.getLong(cursor.getColumnIndex("id"))
             val email = cursor.getString(cursor.getColumnIndex("email"))
             val motDePasse = cursor.getString(cursor.getColumnIndex("mot_de_passe"))
-            utilisateur = Utilisateur(id, username, email, motDePasse)
+            val admin = cursor.getInt(cursor.getColumnIndex("admin"))
+            utilisateur = Utilisateur(id, username, email, motDePasse, admin)
         }
         cursor.close()
         db.close()
@@ -95,7 +99,8 @@ class DAOUtilisateur(context: Context) {
             val nom = cursor.getString(cursor.getColumnIndex("nom"))
             val email = cursor.getString(cursor.getColumnIndex("email"))
             val motDePasse = cursor.getString(cursor.getColumnIndex("mot_de_passe"))
-            utilisateur = Utilisateur(id, nom, email, motDePasse)
+            val admin = cursor.getInt(cursor.getColumnIndex("admin"))
+            utilisateur = Utilisateur(id, nom, email, motDePasse, admin)
         }
         cursor.close()
         db.close()

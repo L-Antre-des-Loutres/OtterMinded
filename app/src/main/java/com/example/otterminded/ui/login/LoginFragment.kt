@@ -46,8 +46,9 @@ class LoginFragment : Fragment() {
                     val sharedPreferences = requireActivity().getSharedPreferences("user_session", Context.MODE_PRIVATE)
                     val editor = sharedPreferences.edit()
                     editor.putString("user_id", authUser?.id.toString())
+                    editor.putString("user_nom", authUser?.nom.toString())
+                    editor.putString("user_isAdmin", authUser?.admin.toString())
                     editor.apply()
-
                     // Redirection ici
                 } else {
                     // Auth échoué
