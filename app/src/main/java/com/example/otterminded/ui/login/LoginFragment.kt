@@ -36,19 +36,22 @@ class LoginFragment : Fragment() {
 
             if (email.isNotEmpty() && password.isNotEmpty()) {
                 if (validateUser(email, password)) {
-                    // L'utilisateur est authentifié
-                    Toast.makeText(requireContext(), "Connexion réussie! Bienvenue!", Toast.LENGTH_SHORT).show()
-
                     val daoUser = DAOUtilisateur(requireContext()) // Instanciation du DAOUtilisateur
                     val authUser = daoUser.getUserByEmail(email)
+
+                    // L'utilisateur est authentifié
+                    Toast.makeText(requireContext(), "Connexion réussie! Bienvenue "+authUser?.nom.toString()+"!", Toast.LENGTH_SHORT).show()
 
                     // Engistrement de la session en local dans sharedPreferences
                     val sharedPreferences = requireActivity().getSharedPreferences("user_session", Context.MODE_PRIVATE)
                     val editor = sharedPreferences.edit()
                     editor.putString("user_id", authUser?.id.toString())
                     editor.putString("user_nom", authUser?.nom.toString())
+                    editor.putString("user_email", authUser?.email.toString())
+                    editor.putString("user_mdp", authUser?.motDePasse.toString())
                     editor.apply()
-                    // Redirection ici
+
+                    // Redirection à faire ici
                 } else {
                     // Auth échoué
                     Toast.makeText(requireContext(), "Email ou MDP incorrect : Mail : "+email+" MDP : "+password, Toast.LENGTH_SHORT).show()
