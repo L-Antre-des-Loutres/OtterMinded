@@ -53,7 +53,6 @@ class HomeFragment : Fragment() {
         val commentIcon: ImageView = binding.commentIcon
 
         // Créer une instance de DAOCommentaire
-
         val daoCommentaire = DAOCommentaire(requireContext())
 
         // Obtenir les commentaires de la question
