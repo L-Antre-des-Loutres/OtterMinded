@@ -1,5 +1,6 @@
 package com.example.otterminded.ui.login
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -37,6 +38,16 @@ class LoginFragment : Fragment() {
                 if (validateUser(email, password)) {
                     // L'utilisateur est authentifié
                     Toast.makeText(requireContext(), "Connexion réussie! Bienvenue!", Toast.LENGTH_SHORT).show()
+
+                    val daoUser = DAOUtilisateur(requireContext()) // Instanciation du DAOUtilisateur
+                    val authUser = daoUser.getUserByEmail(email)
+
+                    // Engistrement de la session en local dans sharedPreferences
+                    val sharedPreferences = requireActivity().getSharedPreferences("user_session", Context.MODE_PRIVATE)
+                    val editor = sharedPreferences.edit()
+                    editor.putString("user_id", authUser?.id.toString())
+                    editor.putString("user_nom", authUser?.nom.toString())
+                    editor.apply()
                     // Redirection ici
                 } else {
                     // Auth échoué

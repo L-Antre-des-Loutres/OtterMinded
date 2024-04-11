@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/nav_login"
-        android:name="com.example.otterminded.ui.login.LoginFragment"
+        android:name="com.example.otterminded.ui.login.ProfilFragment"
         android:label="@string/menu_login"
         tools:layout="@layout/activity_login" />
 

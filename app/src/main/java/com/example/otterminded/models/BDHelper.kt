@@ -64,7 +64,8 @@ class BDHelper(context: Context) :
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 nom VARCHAR(30) NOT NULL,
                 email VARCHAR(50) NOT NULL,
-                mot_de_passe VARCHAR(30) NOT NULL
+                mot_de_passe VARCHAR(30) NOT NULL,
+                admin TINYINT NOT NULL DEFAULT 0
             )
         """.trimIndent()
         db.execSQL(createTableUtilisateur)

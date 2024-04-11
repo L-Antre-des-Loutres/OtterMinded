@@ -22,4 +22,11 @@
         android:name="com.example.otterminded.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
+
+    <fragment
+        android:id="@+id/nav_profil"
+        android:name="com.example.otterminded.ui.login.ProfileFragment"
+        android:label="@string/menu_profil"
+        tools:layout="@layout/fragment_slideshow" />
+
 </navigation>
