@@ -7,12 +7,12 @@
     <!-- Layout pour encapsuler le thème et la question -->
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/clickable_border"
         android:clickable="true"
-        android:padding="8dp"
-        android:layout_marginBottom="8dp">
+        android:orientation="vertical"
+        android:padding="8dp">
 
         <!-- TextView pour le thème -->
         <TextView
