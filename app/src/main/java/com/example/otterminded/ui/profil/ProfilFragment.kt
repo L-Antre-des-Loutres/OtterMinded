@@ -33,13 +33,16 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Récupérer l'ID de l'utilisateur depuis les préférences partagées
+        // Récupére l'ID de l'utilisateur depuis les préférences partagées
         val sharedPreferences = requireActivity().getSharedPreferences("user_session", Context.MODE_PRIVATE)
 
         // Afficher l'ID de l'utilisateur dans le TextView
         userIdTextView.text = "User ID: "+sharedPreferences.getString("user_id", null).toString()
         userNameEditView.hint = sharedPreferences.getString("user_nom", null).toString()
         emailEditView.hint = sharedPreferences.getString("user_email", null).toString()
-        passwordEditView.hint = sharedPreferences.getString("user_mdp", null).toString()
+        // Methode pour cacher le mot de passe avec des *
+        val mdp = sharedPreferences.getString("user_mdp", null)?.toString() ?: ""
+        val mdpInvisible = "*".repeat(mdp.length)
+        passwordEditView.hint = mdpInvisible
     }
 }
