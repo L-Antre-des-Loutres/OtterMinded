@@ -45,17 +45,8 @@ class HomeFragment : Fragment() {
         // Get the total number of questions
         val nbQuestion: Int = daoQuestion.getNbQuestion()
 
-        // Calculate a unique question ID based on current time
-        val currentTimeMillis = System.currentTimeMillis()
-
-        // Calculate the number of milliseconds in 24 hours
-        val millisecondsIn24Hours = 24 * 60 * 60 * 1000
-
-        // Calculate the number of days since epoch
-        val daysSinceEpoch = currentTimeMillis / millisecondsIn24Hours
-
-        // Use the number of days since epoch to determine the question ID
-        val questionId: Long = daysSinceEpoch % nbQuestion
+        // Valeur par défaut
+        val questionId : Long = (1..nbQuestion.toLong()).random()
 
         // Appeler la fonction getQuestionById sur cette instance
         val question = daoQuestion.getQuestionById(questionId)

@@ -8,7 +8,7 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.view.Menu
-import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
@@ -20,19 +20,19 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.otterminded.databinding.ActivityMainBinding
-import com.example.otterminded.service.NotificationScheduler
+import com.example.otterminded.notification.NotificationScheduler
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 
-
-val CHANNEL_ID = "1";
+val CHANNEL_ID = "1"
 val RC_NOTIFICATIONS = 99
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
-    private val CHANNEL_ID = "1"
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -53,8 +53,7 @@ class MainActivity : AppCompatActivity() {
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
         val navController = findNavController(R.id.nav_host_fragment_content_main)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
+
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.nav_home, R.id.nav_login, R.id.nav_slideshow
@@ -63,9 +62,8 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        // Gestion des premissions des notifications
+        // Gestion des permissions de notifications
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-
             requestPermissions(arrayOf(Manifest.permission.POST_NOTIFICATIONS), RC_NOTIFICATIONS)
         }
 
@@ -76,35 +74,30 @@ class MainActivity : AppCompatActivity() {
             .setContentTitle(getString(R.string.channel_name))
             .setContentText("GROU GROU GROU (Quitte pas l'application)")
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setGroup(getString(R.string.groupeNotif))
 
         // Afficher la notification
-        with(NotificationManagerCompat.from(this@MainActivity)) {
+        with(NotificationManagerCompat.from(this)) {
             if (ActivityCompat.checkSelfPermission(
                     this@MainActivity,
                     Manifest.permission.POST_NOTIFICATIONS
                 ) != PackageManager.PERMISSION_GRANTED
             ) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
                 return
             }
             notify(1, builder.build())
         }
 
-        // Notification du 17h
+
+        // Notification à 17h via NotificationScheduler
         val hourOfDay = 17 // Heure souhaitée en heures du jour
         val minuteOfDay = 40
         NotificationScheduler.scheduleNotification(this, hourOfDay, minuteOfDay)
 
     }
-        private fun createNotificationChannel() {
-        // Create the NotificationChannel, but only on API 26+ because
-        // the NotificationChannel class is not in the Support Library.
+
+    private fun createNotificationChannel() {
+        // Créer le canal de notification, mais uniquement sur API 26+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val name = getString(R.string.channel_name)
             val descriptionText = getString(R.string.channel_description)
@@ -112,29 +105,11 @@ class MainActivity : AppCompatActivity() {
             val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
                 description = descriptionText
             }
-            // Register the channel with the system.
+            // Enregistrer le canal avec le système
             val notificationManager: NotificationManager =
                 getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(channel)
         }
-    }
-
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
-        /* Fonction de test si les notifications sont actives ou non. */
-        if (requestCode == RC_NOTIFICATIONS) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, "Notification autorisé sur l'appareil", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(this, "Notification refusé sur l'appareil", Toast.LENGTH_SHORT).show()
-            }
-        } //*/
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
