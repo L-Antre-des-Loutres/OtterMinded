@@ -72,8 +72,8 @@ class BDHelper(context: Context) :
     }
 
     private fun insertDefaultUtilisateur(db: SQLiteDatabase) {
-        db.execSQL("INSERT INTO utilisateur (nom, email, mot_de_passe) VALUES ('Coco', 'coco@coco.com', 'coco', 1)")
-        db.execSQL("INSERT INTO utilisateur (nom, email, mot_de_passe) VALUES ('a', 'a', 'a', 0)")
+        db.execSQL("INSERT INTO utilisateur (nom, email, mot_de_passe) VALUES ('Coco', 'coco@coco.com', 'coco')")
+        db.execSQL("INSERT INTO utilisateur (nom, email, mot_de_passe) VALUES ('a', 'a', 'a')")
         db.execSQL("INSERT INTO utilisateur (nom, email, mot_de_passe) VALUES ('User', 'user@user.com', 'user')")
     }
 

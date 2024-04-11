@@ -29,8 +29,10 @@ class ProfileFragment : Fragment() {
         // Récupérer l'ID de l'utilisateur depuis les préférences partagées
         val sharedPreferences = requireActivity().getSharedPreferences("user_session", Context.MODE_PRIVATE)
         val userId = sharedPreferences.getString("user_id", null)
+        val userName = sharedPreferences.getString("user_nom", null)
 
         // Afficher l'ID de l'utilisateur dans le TextView
         userIdTextView.text = "User ID: $userId"
+        userIdTextView.text = "User ID: $userName"
     }
 }
