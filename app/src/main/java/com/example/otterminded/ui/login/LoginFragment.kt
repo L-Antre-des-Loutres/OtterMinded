@@ -47,6 +47,7 @@ class LoginFragment : Fragment() {
                     val editor = sharedPreferences.edit()
                     editor.putString("user_id", authUser?.id.toString())
                     editor.putString("user_nom", authUser?.nom.toString())
+                    authUser?.admin?.let { it1 -> editor.putInt("admin", it1.toInt()) } // Jsp pq mais ok Android Studio
                     editor.apply()
                     // Redirection ici
                 } else {
