@@ -113,7 +113,7 @@ class LoginFragment : Fragment() {
             return true
         } else {
             // false : aucun utilisateurs trouvés, céation du compte
-            val newUserId = daoUser.addUser(email, email, password)
+            val newUserId = daoUser.addUser("Anomyme", email, password)
             return false
         }
     }
