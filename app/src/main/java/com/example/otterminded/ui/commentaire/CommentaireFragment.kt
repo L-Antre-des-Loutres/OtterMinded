@@ -78,7 +78,7 @@ class CommentaireFragment : Fragment() {
 
                     // Créer le canal de notification (pour Android Oreo et versions ultérieures)
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        val channel = NotificationChannel(NotificationScheduler.CHANNEL_ID, "Channel Name", NotificationManager.IMPORTANCE_DEFAULT)
+                        val channel = NotificationChannel(NotificationScheduler.CHANNEL_ID, getString(R.string.channel_name), NotificationManager.IMPORTANCE_DEFAULT)
                         notificationManager.createNotificationChannel(channel)
                     }
 

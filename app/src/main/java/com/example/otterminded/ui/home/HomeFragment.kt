@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.otterminded.CommentaireActivity
+import com.example.otterminded.QuestionManager
 import com.example.otterminded.databinding.FragmentHomeBinding
 import com.example.otterminded.models.DAOCommentaire
 import com.example.otterminded.models.DAOQuestion
@@ -39,20 +40,14 @@ class HomeFragment : Fragment() {
 
         val dailyQuestion: TextView = binding.dailyQuestion
 
-        // Créez une instance de DAOQuestion
-        val daoQuestion = DAOQuestion(requireContext())
+        // Initialisation de QuestionManager avec le contexte de l'activité
+        val questionManager = QuestionManager(requireContext())
 
-        // Get the total number of questions
-        val nbQuestion: Int = daoQuestion.getNbQuestion()
-
-        // Valeur par défaut
-        val questionId : Long = (1..nbQuestion.toLong()).random()
-
-        // Appeler la fonction getQuestionById sur cette instance
-        val question = daoQuestion.getQuestionById(questionId)
+        // Obtenir l'ID et la question actuels
+        val (questionId, question) = questionManager.getCurrentQuestion()
 
         // Afficher la question dans TextView
-        dailyQuestion.text = question?.question ?: "Question non trouvée"
+        dailyQuestion.text = question
 
         // Référence du bouton dans le layout
         val commentIcon: ImageView = binding.commentIcon
