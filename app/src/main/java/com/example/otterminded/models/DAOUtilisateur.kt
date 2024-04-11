@@ -61,7 +61,7 @@ class DAOUtilisateur(context: Context) {
         var utilisateur: Utilisateur? = null
         if (cursor.moveToFirst()) {
             val id = cursor.getLong(cursor.getColumnIndex("id"))
-            val nom = cursor.getString(cursor.getColumnIndex("nom"))
+            val nom  = cursor.getString(cursor.getColumnIndex("nom"))
             val motDePasse = cursor.getString(cursor.getColumnIndex("mot_de_passe"))
             utilisateur = Utilisateur(id, nom, email, motDePasse)
         }
