@@ -1,6 +1,7 @@
 package com.example.otterminded.ui.login
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.otterminded.MainActivity
 import com.example.otterminded.R
 import com.example.otterminded.models.DAOUtilisateur
 
@@ -20,6 +22,8 @@ class LoginFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val intent = Intent(requireContext(), MainActivity::class.java)
+
         val view = inflater.inflate(R.layout.activity_login, container, false)
 
         val emailEditText = view.findViewById<EditText>(R.id.emailEditText)
@@ -55,6 +59,7 @@ class LoginFragment : Fragment() {
                     editor.apply()
 
                     // Redirection à faire ici
+                    startActivity(intent)
                 } else {
                     // Auth échoué
                     Toast.makeText(requireContext(), "Email ou MDP incorrect : Mail : "+email+" MDP : "+password, Toast.LENGTH_SHORT).show()
@@ -80,9 +85,7 @@ class LoginFragment : Fragment() {
                     // Pas d'utilisateur avec ce mail éxiste déjà, enregistrement ajout de l'utilisateur à la table
                     Toast.makeText(requireContext(), "Compte crée avec : "+email+". Tenter de vous connecter!", Toast.LENGTH_SHORT).show()
                 }
-
             }
-
         }
 
         afficherUtilisateurs()
