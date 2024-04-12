@@ -7,18 +7,6 @@ class DAOUtilisateur(context: Context) {
 
     private val dbHelper: BDHelper = BDHelper(context)
 
-    fun addUser(nom: String, email: String, motDePasse: String): Long {
-        val db = dbHelper.writableDatabase
-        val values = ContentValues().apply {
-            put("nom", nom)
-            put("email", email)
-            put("mot_de_passe", motDePasse)
-        }
-        val newRowId = db.insert("utilisateur", null, values)
-        db.close()
-        return newRowId
-    }
-
     fun tryLogin(email: String, password: String): Utilisateur? {
         val db = dbHelper.readableDatabase
         val cursor = db.rawQuery(
@@ -105,6 +93,33 @@ class DAOUtilisateur(context: Context) {
         cursor.close()
         db.close()
         return utilisateur
+    }
+
+    fun userIsAdmin(email: String): Boolean {
+        val db = dbHelper.readableDatabase
+        val cursor = db.rawQuery("SELECT * FROM utilisateur WHERE email = ?", arrayOf(email))
+        var isAdmin = false
+        if (cursor.moveToFirst()) {
+            val admin = cursor.getInt(cursor.getColumnIndex("admin"))
+            if (admin == 1) {
+                isAdmin = true
+            }
+        }
+        cursor.close()
+        db.close()
+        return isAdmin
+    }
+
+    fun addUser(nom: String, email: String, motDePasse: String): Long {
+        val db = dbHelper.writableDatabase
+        val values = ContentValues().apply {
+            put("nom", nom)
+            put("email", email)
+            put("mot_de_passe", motDePasse)
+        }
+        val newRowId = db.insert("utilisateur", null, values)
+        db.close()
+        return newRowId
     }
 
     fun updateUser(id: Long, nom: String, email: String, motDePasse: String): Int {

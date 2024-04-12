@@ -5,14 +5,16 @@
     android:orientation="vertical"
     android:padding="16dp">
 
+    <!-- Affichage de l'ID de l'utilisateur -->
     <TextView
         android:id="@+id/userIdLabelTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="User ID:"
+        android:text="User ID :"
         android:textSize="22sp"
         android:textStyle="bold" />
 
+    <!-- Affichage & Modif du nom de l'utilisateur -->
     <TextView
         android:id="@+id/nameLabelTextView"
         android:layout_width="wrap_content"
@@ -37,6 +39,7 @@
         android:text="Enregistrer"
         android:layout_marginTop="16dp"/>
 
+    <!-- Affichage & Modif de l'email de l'utilisateur -->
     <TextView
         android:id="@+id/emailLabelTextView"
         android:layout_width="wrap_content"
@@ -63,6 +66,7 @@
         android:text="Enregistrer"
         android:layout_marginTop="16dp"/>
 
+    <!-- Affichage & Modif du mot de passe de l'utilisateur -->
     <TextView
         android:id="@+id/passwordLabelTextView"
         android:layout_width="wrap_content"
@@ -88,5 +92,15 @@
         android:layout_height="wrap_content"
         android:text="Enregistrer"
         android:layout_marginTop="16dp"/>
+
+    <!-- Affichage du status admin ou utilisateur simple de l'utilisateur -->
+    <TextView
+        android:id="@+id/adminLabelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Anonyme"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginTop="16dp" />
 
 </LinearLayout>
