@@ -1,5 +1,6 @@
 package com.example.otterminded.ui.slideshow
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -28,6 +30,7 @@ class SlideshowFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         val slideshowViewModel =
             ViewModelProvider(this).get(SlideshowViewModel::class.java)
 
@@ -40,7 +43,7 @@ class SlideshowFragment : Fragment() {
         }
 
         // Configuration du RecyclerView et de l'adaptateur
-        val recyclerView: RecyclerView = root.findViewById(R.id.vu_question)
+        val recyclerView: RecyclerView = binding.vuQuestion
         val layoutManager = LinearLayoutManager(requireContext())
         recyclerView.layoutManager = layoutManager
 
@@ -65,15 +68,22 @@ class SlideshowFragment : Fragment() {
         recyclerView.adapter = adapter
 
         // Référence du bouton dans le layout
-        val createQuestionButton: Button = root.findViewById(R.id.createQuestionButton)
+        val createQuestionButton: Button = binding.createQuestionButton
+
+        // Récupérer l'ID de l'utilisateur depuis les préférences partagées
+        val sharedPreferences = requireContext().getSharedPreferences("user_session", Context.MODE_PRIVATE)
+        val admin = sharedPreferences.getInt("admin", -1)
 
         // Ajout d'un OnClickListener au bouton
         createQuestionButton.setOnClickListener {
-            // Intent pour démarrer l'activité de création de question
-            val intent = Intent(requireContext(), CreateQuestionActivity::class.java)
-            startActivity(intent)
-        }
-
+            if (admin == 0 || admin == 1) {
+                // Intent pour démarrer l'activité de création de question
+                val intent = Intent(requireContext(), CreateQuestionActivity::class.java)
+                startActivity(intent)
+            } else {
+                        Toast.makeText(requireContext(), "Merci de vous connecter pour proposer une question.", Toast.LENGTH_SHORT).show()
+                    }
+                }
         return root
     }
 
@@ -81,7 +91,6 @@ class SlideshowFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 }
 
 

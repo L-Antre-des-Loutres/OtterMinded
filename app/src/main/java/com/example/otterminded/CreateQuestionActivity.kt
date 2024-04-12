@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.Spinner
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputEditText
 import com.example.otterminded.models.DAOQuestion
@@ -38,6 +39,7 @@ class CreateQuestionActivity : AppCompatActivity() {
                 val newRowId = daoQuestion.addQuestion(theme, questionText)
                 if (newRowId != -1L) {
                     // Successfully added question
+                    Toast.makeText(this, "Question ajouté avec succès !", Toast.LENGTH_SHORT).show()
                     // You can add further handling here if needed
                     val intent = Intent(this, SlideshowFragment::class.java)
                     startActivity(intent)
