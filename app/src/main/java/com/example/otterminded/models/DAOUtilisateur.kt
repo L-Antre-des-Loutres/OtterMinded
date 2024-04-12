@@ -29,7 +29,8 @@ class DAOUtilisateur(context: Context) {
         if (cursor.moveToFirst()) {
             val id = cursor.getLong(cursor.getColumnIndex("id"))
             val email = cursor.getString(cursor.getColumnIndex("email"))
-            utilisateur = Utilisateur(id, email, email, password)
+            val admin = cursor.getInt(cursor.getColumnIndex("admin"))
+            utilisateur = Utilisateur(id, email, email, password, admin)
         }
         cursor.close()
         db.close()
@@ -47,7 +48,8 @@ class DAOUtilisateur(context: Context) {
             val nom = cursor.getString(cursor.getColumnIndex("nom"))
             val email = cursor.getString(cursor.getColumnIndex("email"))
             val motDePasse = cursor.getString(cursor.getColumnIndex("mot_de_passe"))
-            val utilisateur = Utilisateur(id, nom, email, motDePasse)
+            val admin = cursor.getInt(cursor.getColumnIndex("admin"))
+            val utilisateur = Utilisateur(id, nom, email, motDePasse, admin)
             users.add(utilisateur)
         }
         cursor.close()
@@ -63,7 +65,8 @@ class DAOUtilisateur(context: Context) {
             val id = cursor.getLong(cursor.getColumnIndex("id"))
             val nom  = cursor.getString(cursor.getColumnIndex("nom"))
             val motDePasse = cursor.getString(cursor.getColumnIndex("mot_de_passe"))
-            utilisateur = Utilisateur(id, nom, email, motDePasse)
+            val admin = cursor.getInt(cursor.getColumnIndex("admin"))
+            utilisateur = Utilisateur(id, nom, email, motDePasse, admin)
         }
         cursor.close()
         db.close()
@@ -78,7 +81,8 @@ class DAOUtilisateur(context: Context) {
             val id = cursor.getLong(cursor.getColumnIndex("id"))
             val email = cursor.getString(cursor.getColumnIndex("email"))
             val motDePasse = cursor.getString(cursor.getColumnIndex("mot_de_passe"))
-            utilisateur = Utilisateur(id, username, email, motDePasse)
+            val admin = cursor.getInt(cursor.getColumnIndex("admin"))
+            utilisateur = Utilisateur(id, username, email, motDePasse, admin)
         }
         cursor.close()
         db.close()
@@ -95,7 +99,8 @@ class DAOUtilisateur(context: Context) {
             val nom = cursor.getString(cursor.getColumnIndex("nom"))
             val email = cursor.getString(cursor.getColumnIndex("email"))
             val motDePasse = cursor.getString(cursor.getColumnIndex("mot_de_passe"))
-            utilisateur = Utilisateur(id, nom, email, motDePasse)
+            val admin = cursor.getInt(cursor.getColumnIndex("admin"))
+            utilisateur = Utilisateur(id, nom, email, motDePasse, admin)
         }
         cursor.close()
         db.close()
@@ -107,6 +112,36 @@ class DAOUtilisateur(context: Context) {
         val values = ContentValues().apply {
             put("nom", nom)
             put("email", email)
+            put("mot_de_passe", motDePasse)
+        }
+        val rowsAffected = db.update("utilisateur", values, "id = ?", arrayOf(id.toString()))
+        db.close()
+        return rowsAffected
+    }
+
+    fun updateUsername(id: Long, nom: String): Int {
+        val db = dbHelper.writableDatabase
+        val values = ContentValues().apply {
+            put("nom", nom)
+        }
+        val rowsAffected = db.update("utilisateur", values, "id = ?", arrayOf(id.toString()))
+        db.close()
+        return rowsAffected
+    }
+
+    fun updateEmail(id: Long, email: String): Int {
+        val db = dbHelper.writableDatabase
+        val values = ContentValues().apply {
+            put("email", email)
+        }
+        val rowsAffected = db.update("utilisateur", values, "id = ?", arrayOf(id.toString()))
+        db.close()
+        return rowsAffected
+    }
+
+    fun updatePassword(id: Long, motDePasse: String): Int {
+        val db = dbHelper.writableDatabase
+        val values = ContentValues().apply {
             put("mot_de_passe", motDePasse)
         }
         val rowsAffected = db.update("utilisateur", values, "id = ?", arrayOf(id.toString()))

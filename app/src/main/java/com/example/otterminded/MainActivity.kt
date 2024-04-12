@@ -67,7 +67,6 @@ class MainActivity : AppCompatActivity() {
             requestPermissions(arrayOf(Manifest.permission.POST_NOTIFICATIONS), RC_NOTIFICATIONS)
         }
 
-
         // Notification à 17h via NotificationScheduler
         val hourOfDay = 17 // Heure souhaitée en heures du jour
         val minuteOfDay = 40

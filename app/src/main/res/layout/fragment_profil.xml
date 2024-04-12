@@ -10,16 +10,83 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="User ID:"
-        android:textSize="18sp"
+        android:textSize="22sp"
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/userIdTextView"
+        android:id="@+id/nameLabelTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Nom :"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/nameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:textSize="16sp"
+        android:hint="Entrez votre nom"
         android:layout_marginTop="8dp"/>
 
-    <!-- Ajoutez d'autres vues pour afficher d'autres informations du profil de l'utilisateur si nécessaire -->
+    <!-- Bouton pour enregistrer les modifications -->
+    <Button
+        android:id="@+id/saveNomButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enregistrer"
+        android:layout_marginTop="16dp"/>
+
+    <TextView
+        android:id="@+id/emailLabelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Email :"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginTop="16dp" />
+
+    <EditText
+        android:id="@+id/emailEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:hint="Entrez votre email"
+        android:inputType="textEmailAddress"
+        android:layout_marginTop="8dp"/>
+
+    <!-- Bouton pour enregistrer les modifications -->
+    <Button
+        android:id="@+id/saveEmailButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enregistrer"
+        android:layout_marginTop="16dp"/>
+
+    <TextView
+        android:id="@+id/passwordLabelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mot de passe :"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginTop="16dp" />
+
+    <EditText
+        android:id="@+id/passwordEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:hint="Entrez votre mot de passe"
+        android:inputType="textPassword"
+        android:layout_marginTop="8dp"/>
+
+    <!-- Bouton pour enregistrer les modifications -->
+    <Button
+        android:id="@+id/savePasswordButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enregistrer"
+        android:layout_marginTop="16dp"/>
 
 </LinearLayout>

@@ -62,10 +62,16 @@ class CommentaireFragment : Fragment() {
 
             // Récupérer l'ID de la question et de l'utilisateur depuis votre source de données
 
-            val idUtilisateur = 1L // Remplacez ceci par l'ID de l'utilisateur approprié
+            // Récupérer l'ID de l'utilisateur depuis les préférences partagées
+            val sharedPreferences = requireContext().getSharedPreferences("user_session", Context.MODE_PRIVATE)
+            val idUtilisateur =
+                sharedPreferences.getString("user_id", null)?.toLong()  // Remplacez ceci par l'ID de l'utilisateur approprié
 
             // Ajouter le commentaire à la base de données
-            val newRowId = daoCommentaire.addCommentaire(questionId, idUtilisateur, commentaire)
+            val newRowId = idUtilisateur?.let { it1 ->
+                daoCommentaire.addCommentaire(questionId,
+                    it1, commentaire)
+            }
 
             // Vérifier si l'opération a réussi
             if (newRowId != -1L) {
