@@ -119,6 +119,36 @@ class DAOUtilisateur(context: Context) {
         return rowsAffected
     }
 
+    fun updateUsername(id: Long, nom: String): Int {
+        val db = dbHelper.writableDatabase
+        val values = ContentValues().apply {
+            put("nom", nom)
+        }
+        val rowsAffected = db.update("utilisateur", values, "id = ?", arrayOf(id.toString()))
+        db.close()
+        return rowsAffected
+    }
+
+    fun updateEmail(id: Long, email: String): Int {
+        val db = dbHelper.writableDatabase
+        val values = ContentValues().apply {
+            put("email", email)
+        }
+        val rowsAffected = db.update("utilisateur", values, "id = ?", arrayOf(id.toString()))
+        db.close()
+        return rowsAffected
+    }
+
+    fun updatePassword(id: Long, motDePasse: String): Int {
+        val db = dbHelper.writableDatabase
+        val values = ContentValues().apply {
+            put("mot_de_passe", motDePasse)
+        }
+        val rowsAffected = db.update("utilisateur", values, "id = ?", arrayOf(id.toString()))
+        db.close()
+        return rowsAffected
+    }
+
     fun deleteUser(id: Long): Int {
         val db = dbHelper.writableDatabase
         val rowsAffected = db.delete("utilisateur", "id = ?", arrayOf(id.toString()))

@@ -26,7 +26,7 @@
             />
         <item
             android:id="@+id/nav_login"
-            android:icon="@drawable/ic_profil_64"
+            android:icon="@drawable/ic_auth_64"
             android:title="Connexion"
             />
         <item
