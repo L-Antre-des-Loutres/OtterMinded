@@ -36,8 +36,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        createNotificationChannel() // Création du canal de notification
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -69,47 +67,12 @@ class MainActivity : AppCompatActivity() {
             requestPermissions(arrayOf(Manifest.permission.POST_NOTIFICATIONS), RC_NOTIFICATIONS)
         }
 
-        val builder = NotificationCompat.Builder(this, CHANNEL_ID)
-            .setSmallIcon(R.drawable.notification_icon)
-            .setContentTitle(getString(R.string.channel_name))
-            .setContentText("GROU GROU GROU (Quitte pas l'application)")
-            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-            .setGroup(getString(R.string.groupeNotif))
-
-        // Afficher la notification
-        with(NotificationManagerCompat.from(this)) {
-            if (ActivityCompat.checkSelfPermission(
-                    this@MainActivity,
-                    Manifest.permission.POST_NOTIFICATIONS
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                return
-            }
-            notify(1, builder.build())
-        }
-
 
         // Notification à 17h via NotificationScheduler
         val hourOfDay = 17 // Heure souhaitée en heures du jour
         val minuteOfDay = 40
         NotificationScheduler.scheduleNotification(this, hourOfDay, minuteOfDay)
 
-    }
-
-    private fun createNotificationChannel() {
-        // Créer le canal de notification, mais uniquement sur API 26+
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name = getString(R.string.channel_name)
-            val descriptionText = getString(R.string.channel_description)
-            val importance = NotificationManager.IMPORTANCE_DEFAULT
-            val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
-                description = descriptionText
-            }
-            // Enregistrer le canal avec le système
-            val notificationManager: NotificationManager =
-                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(channel)
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

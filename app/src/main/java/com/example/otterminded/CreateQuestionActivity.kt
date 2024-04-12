@@ -5,8 +5,10 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import com.google.android.material.textfield.TextInputEditText
 import com.example.otterminded.models.DAOQuestion
+import com.example.otterminded.notification.NotificationCreate
 import com.example.otterminded.ui.slideshow.SlideshowFragment
 
 
@@ -37,6 +39,19 @@ class CreateQuestionActivity : AppCompatActivity() {
             if (theme.isNotEmpty() && questionText.isNotEmpty()) {
                 val newRowId = daoQuestion.addQuestion(theme, questionText)
                 if (newRowId != -1L) {
+
+                    // Envoi d'une notification pour prévenir de l'ajout de la question
+                    // Créer une instance de NotificationAddQuestion
+                    val notificationCreate = NotificationCreate()
+
+                    // Utiliser la méthode createNotification pour afficher une notification
+                    notificationCreate.createNotification(
+                        context = this,
+                        title = "Ajout d'une question !",
+                        message = "Une nouvelle question a été ajoutée."
+                    )
+
+
                     // Successfully added question
                     // You can add further handling here if needed
                     val intent = Intent(this, SlideshowFragment::class.java)
