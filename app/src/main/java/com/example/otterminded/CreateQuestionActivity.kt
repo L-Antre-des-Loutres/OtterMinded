@@ -1,12 +1,13 @@
 package com.example.otterminded
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.widget.Button
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
 import com.google.android.material.textfield.TextInputEditText
 import com.example.otterminded.models.DAOQuestion
 import com.example.otterminded.notification.NotificationCreate
@@ -20,6 +21,7 @@ class CreateQuestionActivity : AppCompatActivity() {
     private lateinit var addQuestionButton: Button
     private lateinit var daoQuestion: DAOQuestion
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_question)
@@ -49,7 +51,7 @@ class CreateQuestionActivity : AppCompatActivity() {
                     notificationCreate.createNotification(
                         context = this,
                         title = "Ajout d'une question !",
-                        message = "Une nouvelle question a été ajoutée."
+                        message = "Une nouvelle question a été ajoutée. La voici : $questionText"
                     )
 
 

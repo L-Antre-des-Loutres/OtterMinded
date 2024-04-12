@@ -16,20 +16,26 @@ import com.example.otterminded.RC_NOTIFICATIONS
 
 class NotificationCreate {
     // Méthode pour créer une notification
+    @RequiresApi(Build.VERSION_CODES.O)
     fun createNotification(context: Context, title: String, message: String) {
+        // Créer le canal de notification si nécessaire
+        createNotificationChannel(context)
+
+        // Construire la notification
         val builder = NotificationCompat.Builder(context, CHANNEL_ID)
-            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setSmallIcon(R.drawable.notification_icon)
             .setContentTitle(title)
             .setContentText(message)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
 
+        // Afficher la notification
         with(NotificationManagerCompat.from(context)) {
             if (ActivityCompat.checkSelfPermission(
                     context,
                     Manifest.permission.POST_NOTIFICATIONS
                 ) != PackageManager.PERMISSION_GRANTED
             ) {
-                // Gérer le cas où les permissions sont manquantes
+                // TODO: Gérer le cas où les permissions sont manquantes
                 return
             }
             notify(RC_NOTIFICATIONS, builder.build())
@@ -38,7 +44,7 @@ class NotificationCreate {
 
     // Méthode pour créer un canal de notification
     @RequiresApi(Build.VERSION_CODES.O)
-    fun createNotificationChannel(context: Context) {
+    private fun createNotificationChannel(context: Context) {
         val name = "Nom du canal"
         val descriptionText = "Description du canal"
         val importance = NotificationManager.IMPORTANCE_DEFAULT
