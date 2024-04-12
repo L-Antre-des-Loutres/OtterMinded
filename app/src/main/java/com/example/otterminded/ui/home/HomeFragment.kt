@@ -1,5 +1,6 @@
 package com.example.otterminded.ui.home
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,8 +16,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.otterminded.CommentaireActivity
 import com.example.otterminded.databinding.FragmentHomeBinding
 import com.example.otterminded.models.DAOCommentaire
-import com.example.otterminded.models.DAOQuestion
 import com.example.otterminded.support.CommentaireAdapter
+import com.example.otterminded.QuestionManager
+import com.example.otterminded.CreateQuestionActivity
+import com.example.otterminded.models.DAOUtilisateur
 
 class HomeFragment : Fragment() {
 
@@ -37,31 +41,19 @@ class HomeFragment : Fragment() {
             textView.text = it
         }
 
+        // Créer une instance de DAOUtilisateur
+        val daoUtilisateur = DAOUtilisateur(requireContext())
+
         val dailyQuestion: TextView = binding.dailyQuestion
 
-        // Créez une instance de DAOQuestion
-        val daoQuestion = DAOQuestion(requireContext())
+        // Initialisation de QuestionManager avec le contexte de l'activité
+        val questionManager = QuestionManager(requireContext())
 
-        // Get the total number of questions
-        val nbQuestion: Int = daoQuestion.getNbQuestion()
-
-        // Calculate a unique question ID based on current time
-        val currentTimeMillis = System.currentTimeMillis()
-
-        // Calculate the number of milliseconds in 24 hours
-        val millisecondsIn24Hours = 24 * 60 * 60 * 1000
-
-        // Calculate the number of days since epoch
-        val daysSinceEpoch = currentTimeMillis / millisecondsIn24Hours
-
-        // Use the number of days since epoch to determine the question ID
-        val questionId: Long = daysSinceEpoch % nbQuestion
-
-        // Appeler la fonction getQuestionById sur cette instance
-        val question = daoQuestion.getQuestionById(questionId)
+        // Obtenir l'ID et la question actuels
+        val (questionId, question) = questionManager.getCurrentQuestion()
 
         // Afficher la question dans TextView
-        dailyQuestion.text = question?.question ?: "Question non trouvée"
+        dailyQuestion.text = question
 
         // Référence du bouton dans le layout
         val commentIcon: ImageView = binding.commentIcon
@@ -76,17 +68,26 @@ class HomeFragment : Fragment() {
         val recyclerViewCommentaire: RecyclerView = binding.vuCommentaire
 
         // Créer un adaptateur CommentaireAdapter en passant la liste des commentaires
-        val commentaireAdapter = CommentaireAdapter(commentaires)
+        val commentaireAdapter = CommentaireAdapter(commentaires, daoUtilisateur)
 
         // Associer l'adaptateur au RecyclerView
         recyclerViewCommentaire.layoutManager = LinearLayoutManager(requireContext())
         recyclerViewCommentaire.adapter = commentaireAdapter
 
+        // Récupération du statut de l'utilisateur
+        val sharedPreferences = requireContext().getSharedPreferences("user_session", Context.MODE_PRIVATE)
+        val admin = sharedPreferences.getInt("admin", -1)
+
         // Ajout d'un OnClickListener au bouton
         commentIcon.setOnClickListener {
-            val intent = Intent(requireContext(), CommentaireActivity::class.java)
-            intent.putExtra("question_id", questionId) // Passage de l'ID de la question à l'activité UpdateQuestionActivity
-            startActivity(intent)
+            if (admin == 0 || admin == 1) {
+                // Intent pour démarrer l'activité de création de question
+                val intent = Intent(requireContext(), CommentaireActivity::class.java)
+                intent.putExtra("question_id", questionId) // Passage de l'ID de la question à l'activité UpdateQuestionActivity
+                startActivity(intent)
+            } else {
+                Toast.makeText(requireContext(), "Merci de vous connecter pour écrire un commentaire.", Toast.LENGTH_SHORT).show()
+            }
         }
 
         return root

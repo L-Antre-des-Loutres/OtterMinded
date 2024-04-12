@@ -49,6 +49,9 @@ class LoginFragment : Fragment() {
                     editor.putString("user_nom", authUser?.nom.toString())
                     editor.putString("user_email", authUser?.email.toString())
                     editor.putString("user_mdp", authUser?.motDePasse.toString())
+
+                    authUser?.admin?.let { it1 -> editor.putInt("admin", it1.toInt()) } // Jsp pq mais ok Android Studio
+
                     editor.apply()
 
                     // Redirection à faire ici

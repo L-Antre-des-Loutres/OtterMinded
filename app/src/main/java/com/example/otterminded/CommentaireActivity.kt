@@ -2,8 +2,7 @@ package com.example.otterminded
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.otterminded.R
-import com.example.otterminded.ui.main.CommentaireFragment
+import com.example.otterminded.ui.commentaire.CommentaireFragment
 
 class CommentaireActivity : AppCompatActivity() {
 
