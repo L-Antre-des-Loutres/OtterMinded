@@ -29,6 +29,14 @@
         android:hint="Entrez votre nom"
         android:layout_marginTop="8dp"/>
 
+    <!-- Bouton pour enregistrer les modifications -->
+    <Button
+        android:id="@+id/saveNomButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enregistrer"
+        android:layout_marginTop="16dp"/>
+
     <TextView
         android:id="@+id/emailLabelTextView"
         android:layout_width="wrap_content"
@@ -47,6 +55,14 @@
         android:inputType="textEmailAddress"
         android:layout_marginTop="8dp"/>
 
+    <!-- Bouton pour enregistrer les modifications -->
+    <Button
+        android:id="@+id/saveEmailButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enregistrer"
+        android:layout_marginTop="16dp"/>
+
     <TextView
         android:id="@+id/passwordLabelTextView"
         android:layout_width="wrap_content"
@@ -64,5 +80,13 @@
         android:hint="Entrez votre mot de passe"
         android:inputType="textPassword"
         android:layout_marginTop="8dp"/>
+
+    <!-- Bouton pour enregistrer les modifications -->
+    <Button
+        android:id="@+id/savePasswordButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enregistrer"
+        android:layout_marginTop="16dp"/>
 
 </LinearLayout>

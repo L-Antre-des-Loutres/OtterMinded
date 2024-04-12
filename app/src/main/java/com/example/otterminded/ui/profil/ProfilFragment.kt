@@ -5,10 +5,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.otterminded.R
+import com.example.otterminded.models.DAOUtilisateur
 
 class ProfileFragment : Fragment() {
 
@@ -23,10 +25,63 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_profil, container, false)
+        // Zones de texte
         userIdTextView = view.findViewById(R.id.userIdLabelTextView)
+        // Champs de texte
         userNameEditView = view.findViewById(R.id.nameEditText)
         emailEditView = view.findViewById(R.id.emailEditText)
         passwordEditView = view.findViewById(R.id.passwordEditText)
+        // Boutons
+        val saveNomButton = view.findViewById<Button>(R.id.saveNomButton)
+        val saveEmailButton = view.findViewById<Button>(R.id.saveEmailButton)
+        val savePasswordButton = view.findViewById<Button>(R.id.savePasswordButton)
+        // Dao Utilisateur
+        val daoUser = DAOUtilisateur(requireContext()) // Instanciation du DAOUtilisateur
+
+        // Ecouteurs pour les boutons
+        saveNomButton.setOnClickListener {
+            // Modifier le nom de l'utilisateur dans la base de données
+            val userId = view.findViewById<TextView>(R.id.userIdLabelTextView).text.toString().split(":")[1].trim().toLong()
+            daoUser.updateUsername(userId, userNameEditView.text.toString())
+
+            // Sauvegarder le nom dans les sharedPreferences
+            val sharedPreferences = requireActivity().getSharedPreferences("user_session", Context.MODE_PRIVATE)
+            val editor = sharedPreferences.edit()
+            editor.putString("user_nom", userNameEditView.text.toString())
+            editor.apply()
+            userNameEditView.hint = userNameEditView.text.toString()
+            userNameEditView.text.clear()
+        }
+
+        saveEmailButton.setOnClickListener {
+            // Modifier l'email de l'utilisateur dans la base de données
+            val userId = view.findViewById<TextView>(R.id.userIdLabelTextView).text.toString().split(":")[1].trim().toLong()
+            daoUser.updateEmail(userId, emailEditView.text.toString())
+
+            // Sauvegarder l'email dans les sharedPreferences
+            val sharedPreferences = requireActivity().getSharedPreferences("user_session", Context.MODE_PRIVATE)
+            val editor = sharedPreferences.edit()
+            editor.putString("user_email", emailEditView.text.toString())
+            editor.apply()
+            emailEditView.hint = emailEditView.text.toString()
+            emailEditView.text.clear()
+        }
+
+        savePasswordButton.setOnClickListener {
+            // Modifier le mot de passe de l'utilisateur dans la base de données
+            val userId = view.findViewById<TextView>(R.id.userIdLabelTextView).text.toString().split(":")[1].trim().toLong()
+            daoUser.updatePassword(userId, passwordEditView.text.toString())
+
+            // Sauvegarder le mot de passe dans les sharedPreferences
+            val sharedPreferences = requireActivity().getSharedPreferences("user_session", Context.MODE_PRIVATE)
+            val editor = sharedPreferences.edit()
+            editor.putString("user_mdp", passwordEditView.text.toString())
+            editor.apply()
+            val mdpInvisible = "*".repeat(passwordEditView.text.length)
+            passwordEditView.hint = mdpInvisible
+            passwordEditView.text.clear()
+        }
+
         return view
     }
 
