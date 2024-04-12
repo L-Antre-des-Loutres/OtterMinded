@@ -37,6 +37,7 @@ class ProfileFragment : Fragment() {
         val saveNomButton = view.findViewById<Button>(R.id.saveNomButton)
         val saveEmailButton = view.findViewById<Button>(R.id.saveEmailButton)
         val savePasswordButton = view.findViewById<Button>(R.id.savePasswordButton)
+        val logoutButton = view.findViewById<Button>(R.id.logoutButton)
         // Dao Utilisateur
         val daoUser = DAOUtilisateur(requireContext()) // Instanciation du DAOUtilisateur
 
@@ -82,6 +83,15 @@ class ProfileFragment : Fragment() {
             val mdpInvisible = "*".repeat(passwordEditView.text.length)
             passwordEditView.hint = mdpInvisible
             passwordEditView.text.clear()
+        }
+
+        logoutButton.setOnClickListener {
+            // Déconnexion de l'utilisateur
+            // Supprimer les données dans les sharedPreferences
+            val sharedPreferences = requireActivity().getSharedPreferences("user_session", Context.MODE_PRIVATE)
+            val editor = sharedPreferences.edit()
+            editor.clear()
+            editor.apply()
         }
 
         return view
