@@ -97,15 +97,10 @@ class LoginFragment : Fragment() {
         // Logic de la connexion : vérification de email + mdp
 
         val daoUser = DAOUtilisateur(requireContext()) // Instanciation du DAOUtilisateur
-        val user = daoUser.tryLogin(email, password) // Appel de la fonction tryLogin()
+        val user = daoUser.tryLogin(email, password) // Appel de la fonction tryLogin()// false : la connexion a échoué, aucun utilisateurs trouvés
 
-        if (user != null) {
-            // true : utilisateur trouvé, la connexion a réussi
-            return true
-        } else {
-            // false : la connexion a échoué, aucun utilisateurs trouvés
-            return false
-        }
+        // true : utilisateur trouvé, la connexion a réussi
+        return user != null
     }
 
     private fun doesAccountExist(email: String, password: String): Boolean {

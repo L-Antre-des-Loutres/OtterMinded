@@ -34,5 +34,10 @@
             android:icon="@drawable/ic_profil_64"
             android:title="Profil"
             />
+        <item
+            android:id="@+id/nav_approuver_question"
+            android:icon="@drawable/ic_profil_64"
+            android:title="Approuver question"
+            />
     </group>
 </menu>
