@@ -1,4 +1,4 @@
-package com.example.otterminded.ui.slideshow
+package com.example.otterminded.ui.admin
 
 import android.content.Context
 import android.content.Intent
@@ -18,9 +18,10 @@ import com.example.otterminded.R
 import com.example.otterminded.UpdateQuestionActivity
 import com.example.otterminded.databinding.FragmentSlideshowBinding
 import com.example.otterminded.models.DAOInitializer
-import com.example.otterminded.support.QuestionAdapter
+import com.example.otterminded.support.AdminQuestionAdaptater
+import com.example.otterminded.ui.slideshow.SlideshowViewModel
 
-class SlideshowFragment : Fragment() {
+class QuestionFragment : Fragment() {
 
     private var _binding: FragmentSlideshowBinding? = null
     private val binding get() = _binding!!
@@ -57,7 +58,7 @@ class SlideshowFragment : Fragment() {
         val questions = daoQuestion.getAllQuestions()
 
         // Création de l'adaptateur avec les questions récupérées
-        val adapter = QuestionAdapter(questions) { questionId ->
+        val adapter = AdminQuestionAdaptater(questions) { questionId ->
             // Gérer le clic sur le bouton "Edit"
             val intent = Intent(requireContext(), UpdateQuestionActivity::class.java)
             intent.putExtra("question_id", questionId) // Passage de l'ID de la question à l'activité UpdateQuestionActivity
