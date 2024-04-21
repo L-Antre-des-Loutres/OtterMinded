@@ -1,8 +1,15 @@
-<!-- fragment_admin_commentaire.xml -->
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:text="Contenu du fragment commentaire"
-    android:textSize="24sp" />
-    <!-- fragment_admin_commentaire.xml -->
+    android:orientation="vertical">
+
+    <!-- Votre TextView existant -->
+
+    <!-- Spinner pour la liste de choix -->
+    <Spinner
+        android:id="@+id/spinnerOptions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>
