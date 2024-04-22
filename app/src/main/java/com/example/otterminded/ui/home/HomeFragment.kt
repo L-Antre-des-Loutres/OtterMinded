@@ -16,10 +16,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.otterminded.CommentaireActivity
 import com.example.otterminded.databinding.FragmentHomeBinding
 import com.example.otterminded.models.DAOCommentaire
-import com.example.otterminded.support.CommentaireAdapter
 import com.example.otterminded.QuestionManager
-import com.example.otterminded.CreateQuestionActivity
+import com.example.otterminded.models.Commentaire
 import com.example.otterminded.models.DAOUtilisateur
+import com.example.otterminded.support.CommentaireAdapter
 
 class HomeFragment : Fragment() {
 
@@ -31,11 +31,10 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        val homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         val textView: TextView = binding.textHome
         homeViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
@@ -62,12 +61,11 @@ class HomeFragment : Fragment() {
         val daoCommentaire = DAOCommentaire(requireContext())
 
         // Obtenir les commentaires de la question
-        val commentaires = daoCommentaire.getCommentaireByQuestionId(questionId)
+        val commentaires: MutableList<Commentaire> = daoCommentaire.getCommentaireByQuestionId(questionId).toMutableList()
 
         // Référence au RecyclerView dans votre layout (vu_commentaire)
         val recyclerViewCommentaire: RecyclerView = binding.vuCommentaire
 
-        // Créer un adaptateur CommentaireAdapter en passant la liste des commentaires
         val commentaireAdapter = CommentaireAdapter(commentaires, daoUtilisateur)
 
         // Associer l'adaptateur au RecyclerView

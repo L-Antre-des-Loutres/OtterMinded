@@ -1,0 +1,57 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <!-- Layout pour encapsuler l'ID de la question, l'ID de l'utilisateur et le commentaire -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/clickable_border"
+        android:clickable="true"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <!-- ImageView pour l'icône à gauche -->
+        <ImageView
+            android:id="@+id/avatarImageView"
+            android:layout_width="54dp"
+            android:layout_height="50dp"
+            android:contentDescription="Avatar"
+            android:src="@drawable/icone_avatar" />
+
+        <!-- ScrollView encapsulant le TextView pour le commentaire -->
+        <ScrollView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/commentaireTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Commentaire très long et qui nécessite un défilement pour être lu entièrement. Commentaire très long et qui nécessite un défilement pour être lu entièrement. Commentaire très long et qui nécessite un défilement pour être lu entièrement. Commentaire très long et qui nécessite un défilement pour être lu entièrement. Commentaire très long et qui nécessite un défilement pour être lu entièrement."
+                android:textSize="14sp" />
+        </ScrollView>
+
+    </LinearLayout>
+
+    <!-- TextView pour le pseudo anonyme -->
+
+    <TextView
+        android:id="@+id/pseudoTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="Anonyme"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="12sp" />
+
+    <Button
+        android:id="@+id/deleteButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Supprimer" />
+
+</LinearLayout>
