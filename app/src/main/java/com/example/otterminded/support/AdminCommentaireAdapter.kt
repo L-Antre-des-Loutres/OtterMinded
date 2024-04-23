@@ -10,19 +10,30 @@ import com.example.otterminded.R
 import com.example.otterminded.models.Commentaire
 import com.example.otterminded.models.DAOUtilisateur
 
-class CommentaireAdapter(
-    private var commentaires: MutableList<Commentaire>,
+class AdminCommentaireAdapter(
+    var commentaires: MutableList<Commentaire>, // Définir commentaires comme MutableList
     private val daoUtilisateur: DAOUtilisateur,
-) : RecyclerView.Adapter<CommentaireAdapter.ViewHolder>() {
+    private val onDeleteClickListener: (Int) -> Unit
+) : RecyclerView.Adapter<AdminCommentaireAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val commentaireTextView: TextView = itemView.findViewById(R.id.commentaireTextView)
         val idUtilisateurTextView: TextView = itemView.findViewById(R.id.pseudoTextView)
+        val deleteButton: Button = itemView.findViewById(R.id.deleteButton) // Bouton de suppression
+
+        init {
+            deleteButton.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    onDeleteClickListener(position) // Appel du gestionnaire de clic sur le bouton de suppression
+                }
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_commentaire, parent, false)
+            .inflate(R.layout.item_admin_commentaire, parent, false)
         return ViewHolder(view)
     }
 
@@ -42,9 +53,9 @@ class CommentaireAdapter(
         }
     }
 
+    // Méthode pour mettre à jour les données de l'adaptateur avec de nouveaux commentaires
     fun updateData(newCommentaires: List<Commentaire>) {
-        commentaires.clear()
-        commentaires.addAll(newCommentaires)
+        commentaires = newCommentaires.toMutableList()
         notifyDataSetChanged()
     }
 }

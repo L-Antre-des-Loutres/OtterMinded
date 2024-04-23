@@ -85,5 +85,10 @@ class DAOCommentaire(context: Context) {
         return commentaires
     }
 
-
+    fun deleteCommentaire(id: Long): Int {
+        val db = dbHelper.writableDatabase
+        val deletedRows = db.delete("commentaire", "id = ?", arrayOf(id.toString()))
+        db.close()
+        return deletedRows
+    }
 }
