@@ -1,6 +1,6 @@
 ![BigNoOutline](https://github.com/L-Antre-des-Loutres/OtterMinded/assets/109530954/ca377a6f-9701-4429-863c-647742a5afdb)
 
-*Jeu de mot sur le terme anglais Open-Minded (Ouvert d'esprit), en remplacent "Open" (ouvert) par "Otter" (loutre).*
+*Jeu de mot sur le terme anglais Open-Minded (Ouvert d'esprit), en remplaçant "Open" (ouvert) par "Otter" (loutre).*
 <br><br>
 
 # Table des Matières
