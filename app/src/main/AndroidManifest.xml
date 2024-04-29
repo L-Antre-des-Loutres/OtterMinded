@@ -27,6 +27,9 @@
             android:name=".QuestionActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.approuverQuestion.ApprouverQuestionActivity"
+            android:exported="false" />
+        <activity
             android:name=".CommentaireActivity"
             android:exported="false" />
         <activity

@@ -29,4 +29,10 @@
         android:label="@string/menu_profil"
         tools:layout="@layout/fragment_slideshow" />
 
+    <fragment
+        android:id="@+id/nav_approuver_question"
+        android:name="com.example.otterminded.ui.approuverQuestion.ApprouverQuestionFragment"
+        android:label="Aprouver question"
+        tools:layout="@layout/fragment_approuver_question"/>
+
 </navigation>
