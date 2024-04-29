@@ -39,6 +39,9 @@
             android:name=".CreateQuestionActivity"
             android:exported="false" />
         <activity
+            android:name=".UpdateUserActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
