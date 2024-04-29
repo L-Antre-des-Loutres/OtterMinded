@@ -1,5 +1,6 @@
 package com.example.otterminded.models
 
+import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
 
@@ -18,6 +19,7 @@ class DAOCommentaire(context: Context) {
         return newRowId
     }
 
+    @SuppressLint("Range")
     fun getAllCommentaires(): ArrayList<Commentaire> {
         val commentaires = ArrayList<Commentaire>()
         val db = dbHelper.readableDatabase
@@ -35,6 +37,7 @@ class DAOCommentaire(context: Context) {
         return commentaires
     }
 
+    @SuppressLint("Range")
     fun getCommentaireById(id: Long): Commentaire? {
         val db = dbHelper.readableDatabase
         val cursor = db.rawQuery("SELECT * FROM commentaire WHERE id = ?", arrayOf(id.toString()))
@@ -50,6 +53,7 @@ class DAOCommentaire(context: Context) {
         return commentaire
     }
 
+    @SuppressLint("Range")
     fun getCommentaireByUserId(id_utilisateur: Long): Commentaire? {
         val db = dbHelper.readableDatabase
         val cursor = db.rawQuery("SELECT * FROM commentaire WHERE id_utilisateur = ?", arrayOf(id_utilisateur.toString()))
@@ -66,6 +70,7 @@ class DAOCommentaire(context: Context) {
         return commentaire
     }
 
+    @SuppressLint("Range")
     fun getCommentaireByQuestionId(idQuestion: Long): List<Commentaire> {
         val db = dbHelper.readableDatabase
         val cursor = db.rawQuery("SELECT * FROM commentaire WHERE id_question = ?", arrayOf(idQuestion.toString()))
