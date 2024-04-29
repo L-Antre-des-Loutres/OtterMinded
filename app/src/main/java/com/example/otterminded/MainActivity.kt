@@ -4,10 +4,13 @@ import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -21,6 +24,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.otterminded.databinding.ActivityMainBinding
 import com.example.otterminded.notification.NotificationScheduler
+import com.example.otterminded.ui.slideshow.SlideshowFragment
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 
@@ -84,4 +88,43 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Vérifiez quel élément de menu a été cliqué et affichez un message approprié
+        return when (item.itemId) {
+            R.id.action_settings -> {
+                showToast("Action Settings cliquée")
+                true
+            }
+            R.id.action_profil -> {
+                showToast("Action Profil cliquée")
+                true
+            }
+            R.id.action_questions -> {
+                showToast("Action Questions cliquée")
+                true
+            }
+            R.id.action_admin -> {
+                val sharedPreferences = getSharedPreferences("user_session", Context.MODE_PRIVATE)
+                val admin = sharedPreferences.getInt("admin", -1)
+
+                if (admin == 1) {
+                    val intent = Intent(this, AdminActivity::class.java)
+                    startActivity(intent)
+                    true
+                } else {
+                    // Afficher un message indiquant que l'accès est réservé aux administrateurs
+                    Toast.makeText(this, "Accès réservé aux administrateurs", Toast.LENGTH_SHORT).show()
+                    true
+                }
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun showToast(message: String) {
+        // Afficher un toast avec le message spécifié
+        Toast.makeText(applicationContext, message, Toast.LENGTH_SHORT).show()
+    }
+
 }

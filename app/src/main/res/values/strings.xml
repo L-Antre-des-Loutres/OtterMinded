@@ -35,5 +35,10 @@
     <string name="channel_name">OtterMinded</string>
     <string name="channel_description">La pensée des loutres</string>
     <string name="groupeNotif">com.android.example.OTTERMINDED</string>
+    <string name="action_admin">Panel Admin</string>
+    <string name="title_activity_admin">AdminActivity</string>
+    <string name="tab_text_1">Question</string>
+    <string name="tab_text_2">Commentaire</string>
+    <string name="tab_text_3">Utilisateur</string>
 
 </resources>
