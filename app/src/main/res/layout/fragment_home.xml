@@ -47,15 +47,15 @@
 
     <ImageView
         android:id="@+id/comment_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="19dp"
+        android:layout_height="21dp"
         android:src="@android:drawable/sym_action_chat"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.702"
+        app:layout_constraintHorizontal_bias="0.663"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.418" />
+        app:layout_constraintVertical_bias="0.404" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/vu_commentaire"
@@ -70,9 +70,9 @@
 
     <TextView
         android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
+        android:layout_width="151dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="8dp"
         android:text="Commentaires"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
