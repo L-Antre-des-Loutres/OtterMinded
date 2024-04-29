@@ -12,14 +12,20 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_login"
-        android:name="com.example.otterminded.ui.login.ProfilFragment"
-        android:label="@string/menu_login"
-        tools:layout="@layout/activity_login" />
+        android:id="@+id/nav_profil"
+        android:name="com.example.otterminded.ui.login.ProfileFragment"
+        android:label="@string/menu_profil"
+        tools:layout="@layout/fragment_slideshow" />
 
     <fragment
         android:id="@+id/nav_slideshow"
         android:name="com.example.otterminded.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
+    <fragment
+        android:id="@+id/nav_approuver_question"
+        android:name="com.example.otterminded.ui.approuverQuestion.ApprouverQuestionFragment"
+        android:label="Aprouver question"
+        tools:layout="@layout/fragment_approuver_question"
+        />
 </navigation>

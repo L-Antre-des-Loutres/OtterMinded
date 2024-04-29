@@ -42,7 +42,7 @@ class QuestionManager(private val context: Context) {
             // Récupérer seulement la question dans l'objet question
             val questionText = question?.question ?: "Question introuvable"
 
-            return Pair(questionId, questionText ?: "Question introuvable") // Si la question n'est pas trouvée, retourne une chaîne par défaut
+            return Pair(questionId, questionText) // Si la question n'est pas trouvée, retourne une chaîne par défaut
         }
 
 

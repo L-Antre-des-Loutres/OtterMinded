@@ -23,7 +23,8 @@ class BDHelper(context: Context) :
             CREATE TABLE question (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 theme VARCHAR(50) NOT NULL,
-                question VARCHAR(50) NOT NULL
+                question VARCHAR(50) NOT NULL,
+                approuver INTEGER DEFAULT 0
             )
         """.trimIndent()
         db.execSQL(createTableQuestion)
