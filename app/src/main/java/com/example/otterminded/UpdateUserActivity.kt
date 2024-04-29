@@ -15,6 +15,7 @@ import com.example.otterminded.ui.slideshow.SlideshowFragment
 
 class UpdateUserActivity : AppCompatActivity() {
 
+    private lateinit var nameEditText: EditText
     private lateinit var emailEditText: EditText
     private lateinit var passwordEditText: EditText
     private var userId: Long = -1
@@ -31,10 +32,12 @@ class UpdateUserActivity : AppCompatActivity() {
         val user = daoUtilisateur.getUserById(userId)
 
         // Lier les éléments de l'interface utilisateur avec les vues XML
+        nameEditText = findViewById(R.id.editNameText)
         emailEditText = findViewById(R.id.editEmailText)
         passwordEditText = findViewById(R.id.editPasswordText)
 
         // Remplir les champs EditText avec les données de l'utilisateur
+        nameEditText.setText(user?.nom ?: "")
         emailEditText.setText(user?.email ?: "")
         passwordEditText.setText(user?.motDePasse ?: "")
 
@@ -45,14 +48,15 @@ class UpdateUserActivity : AppCompatActivity() {
 @RequiresApi(Build.VERSION_CODES.O)
 fun onUpdateButtonClick(view: View) {
         // Récupérer les nouvelles valeurs des champs EditText
+        val newName = nameEditText.text.toString()
         val newEmail = emailEditText.text.toString()
         val newMdp = passwordEditText.text.toString()
 
         // Vérifier si les champs ne sont pas vides
-        if (newEmail.isNotEmpty() && newMdp.isNotEmpty()) {
+        if (newName.isNotEmpty() && newEmail.isNotEmpty() && newMdp.isNotEmpty()) {
 
             val daoUtilisateur = DAOInitializer.getDAOUtilisateur()
-            val rowsAffected = daoUtilisateur.updateUser(userId, newEmail, newEmail, newMdp)
+            val rowsAffected = daoUtilisateur.updateUser(userId, newName, newEmail, newMdp)
 
             if (rowsAffected > 0) {
                 val notificationCreate = NotificationCreate()
@@ -85,8 +89,8 @@ fun onUpdateButtonClick(view: View) {
         if (userId != -1L) {
             // Affichez une boîte de dialogue de confirmation avant de supprimer l'utilisateur
             AlertDialog.Builder(this)
-                .setTitle("Une loutre : \"Grouuuu Grouuuuu\"")
-                .setMessage("(Tu es sûr de vouloir supprimer cet utilisateur ?)")
+                .setTitle("Arisoutre : \"Grouuuu Grouuuuu\"")
+                .setMessage("(Traduction : Tu es sûr de vouloir supprimer cet utilisateur ?)")
                 .setPositiveButton("Oui") { dialog, _ ->
 
                     // Supprimez l' utilisateur
