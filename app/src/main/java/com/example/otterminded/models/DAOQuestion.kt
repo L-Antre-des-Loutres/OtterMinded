@@ -1,7 +1,8 @@
 package com.example.otterminded.models
-
 import android.content.ContentValues
 import android.content.Context
+import com.example.otterminded.models.BDHelper
+import com.example.otterminded.models.Question
 
 class DAOQuestion(context: Context) {
 
@@ -26,7 +27,8 @@ class DAOQuestion(context: Context) {
             val id = cursor.getLong(cursor.getColumnIndex("id"))
             val theme = cursor.getString(cursor.getColumnIndex("theme"))
             val questionText = cursor.getString(cursor.getColumnIndex("question"))
-            val question = Question(id, theme, questionText)
+            val approuver = cursor.getInt(cursor.getColumnIndex("approuver"))
+            val question = Question(id, theme, questionText, approuver)
             questions.add(question)
         }
         cursor.close()
@@ -41,7 +43,8 @@ class DAOQuestion(context: Context) {
         if (cursor.moveToFirst()) {
             val theme = cursor.getString(cursor.getColumnIndex("theme"))
             val questionText = cursor.getString(cursor.getColumnIndex("question"))
-            question = Question(id, theme, questionText)
+            val approuver = cursor.getInt(cursor.getColumnIndex("approuver"))
+            question = Question(id, theme, questionText, approuver)
         }
         cursor.close()
         db.close()
@@ -77,6 +80,29 @@ class DAOQuestion(context: Context) {
         db.close()
         return count
     }
+    fun approveQuestion(id: Long): Int {
+        val db = dbHelper.writableDatabase
+        val values = ContentValues().apply {
+            put("approuver", 1) // Mettez à jour la valeur de approuver à 1
+        }
+        val rowsAffected = db.update("question", values, "id = ?", arrayOf(id.toString()))
+        db.close()
+        return rowsAffected
+    }
+    fun getQuestionsApprouver(): ArrayList<Question> {
+        val questions = ArrayList<Question>()
+        val db = dbHelper.readableDatabase
+        val cursor = db.rawQuery("SELECT * FROM question WHERE approuver = 0", null)
+        while (cursor.moveToNext()) {
+            val id = cursor.getLong(cursor.getColumnIndex("id"))
+            val theme = cursor.getString(cursor.getColumnIndex("theme"))
+            val questionText = cursor.getString(cursor.getColumnIndex("question"))
+            val approuver = cursor.getInt(cursor.getColumnIndex("approuver"))
+            val question = Question(id, theme, questionText, approuver)
+            questions.add(question)
+        }
+        cursor.close()
+        db.close()
+        return questions
+    }
 }
-
-

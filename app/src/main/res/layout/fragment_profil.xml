@@ -1,0 +1,114 @@
+<!-- fragment_profile.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Affichage de l'ID de l'utilisateur -->
+    <TextView
+        android:id="@+id/userIdLabelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="User ID :"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <!-- Affichage du status admin ou utilisateur simple de l'utilisateur -->
+    <TextView
+        android:id="@+id/adminLabelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Anonyme"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <!-- Affichage & Modif du nom de l'utilisateur -->
+    <TextView
+        android:id="@+id/nameLabelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:text="Nom :"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/nameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:hint="Votre nom"
+        android:layout_marginTop="8dp"/>
+
+    <!-- Bouton pour enregistrer les modifications -->
+    <Button
+        android:id="@+id/saveNomButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enregistrer"/>
+
+    <!-- Affichage & Modif de l'email de l'utilisateur -->
+    <TextView
+        android:id="@+id/emailLabelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Email :"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginTop="22dp" />
+
+    <EditText
+        android:id="@+id/emailEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:hint="Votre email"
+        android:inputType="textEmailAddress"
+        android:layout_marginTop="8dp"/>
+
+    <!-- Bouton pour enregistrer les modifications -->
+    <Button
+        android:id="@+id/saveEmailButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enregistrer"/>
+
+    <!-- Affichage & Modif du mot de passe de l'utilisateur -->
+    <TextView
+        android:id="@+id/passwordLabelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mot de passe :"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginTop="22dp" />
+
+    <EditText
+        android:id="@+id/passwordEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:hint="Votre mot de passe"
+        android:inputType="textPassword"
+        android:layout_marginTop="8dp"/>
+
+    <!-- Bouton pour enregistrer les modifications -->
+    <Button
+        android:id="@+id/savePasswordButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enregistrer"/>
+
+    <!-- Bouton pour se déconnecter -->
+    <Button
+        android:id="@+id/logoutButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Se déconnecter"
+        android:layout_marginTop="22dp"
+        android:backgroundTint="@color/red"
+        />
+
+
+</LinearLayout>

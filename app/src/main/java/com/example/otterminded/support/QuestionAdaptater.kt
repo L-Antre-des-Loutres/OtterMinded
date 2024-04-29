@@ -1,10 +1,12 @@
 package com.example.otterminded.support
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.otterminded.R
 import com.example.otterminded.models.Question
@@ -17,7 +19,6 @@ class QuestionAdapter(
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val themeTextView: TextView = itemView.findViewById(R.id.themeTextView)
         val questionTextView: TextView = itemView.findViewById(R.id.questionTextView)
-        val editButton: Button = itemView.findViewById(R.id.editButton) // Ajout du bouton "Edit"
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -27,17 +28,13 @@ class QuestionAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
+        // Récupérer l'ID de l'utilisateur depuis les préférences partagées
+        val sharedPreferences = holder.itemView.context.getSharedPreferences("user_session", Context.MODE_PRIVATE)
+        val admin = sharedPreferences.getInt("admin", 0)
         val question = questions[position]
         holder.themeTextView.text = question.theme
         holder.questionTextView.text = question.question
-
-        // Gérer le clic sur le bouton "Edit"
-        holder.editButton.setOnClickListener {
-            // Récupérer l'ID de la question à partir de la position
-            val questionId = questions[position].id
-            // Appeler l'interface pour gérer le clic sur le bouton "Edit"
-            onEditClickListener(questionId)
-        }
     }
 
     override fun getItemCount(): Int {

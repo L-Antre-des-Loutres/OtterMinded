@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
 class BDHelper(context: Context) :
-    SQLiteOpenHelper(context, "LocaLoutre", null, 1) {
+    SQLiteOpenHelper(context, "OtterMinded", null, 1) {
 
     override fun onCreate(db: SQLiteDatabase) {
         createTableQuestion(db)
@@ -23,7 +23,8 @@ class BDHelper(context: Context) :
             CREATE TABLE question (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 theme VARCHAR(50) NOT NULL,
-                question VARCHAR(50) NOT NULL
+                question VARCHAR(50) NOT NULL,
+                approuver INTEGER DEFAULT 0
             )
         """.trimIndent()
         db.execSQL(createTableQuestion)
@@ -64,7 +65,8 @@ class BDHelper(context: Context) :
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 nom VARCHAR(30) NOT NULL,
                 email VARCHAR(50) NOT NULL,
-                mot_de_passe VARCHAR(30) NOT NULL
+                mot_de_passe VARCHAR(30) NOT NULL,
+                admin TINYINT NOT NULL DEFAULT 0
             )
         """.trimIndent()
         db.execSQL(createTableUtilisateur)
@@ -72,12 +74,15 @@ class BDHelper(context: Context) :
 
     private fun insertDefaultUtilisateur(db: SQLiteDatabase) {
         db.execSQL("INSERT INTO utilisateur (nom, email, mot_de_passe) VALUES ('Coco', 'coco@coco.com', 'coco')")
+        db.execSQL("INSERT INTO utilisateur (nom, email, mot_de_passe) VALUES ('a', 'a', 'a')")
         db.execSQL("INSERT INTO utilisateur (nom, email, mot_de_passe) VALUES ('User', 'user@user.com', 'user')")
+        db.execSQL("INSERT INTO utilisateur (nom, email, mot_de_passe, admin) VALUES ('admin', 'admin', 'admin', 1)")
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         db.execSQL("DROP TABLE IF EXISTS question")
         db.execSQL("DROP TABLE IF EXISTS utilisateur")
+        db.execSQL("DROP TABLE IF EXISTS commentaire")
         onCreate(db)
     }
 }

@@ -2,6 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission
+        android:name="android.permission.POST_NOTIFICATIONS"
+        android:required="false" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -12,6 +18,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.OtterMinded"
         tools:targetApi="31">
+        <activity
+            android:name=".AdminActivity"
+            android:exported="false"
+            android:label="@string/title_activity_admin"
+            android:theme="@style/Theme.OtterMinded.NoActionBar" />
+        <activity
+            android:name=".QuestionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.approuverQuestion.ApprouverQuestionActivity"
+            android:exported="false" />
         <activity
             android:name=".CommentaireActivity"
             android:exported="false" />
@@ -32,6 +49,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <receiver android:name=".notification.NotificationScheduler" />
     </application>
 
 </manifest>

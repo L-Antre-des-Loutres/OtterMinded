@@ -5,7 +5,7 @@
     android:id="@+id/commentaire"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.CommentaireFragment">
+    tools:context=".ui.commentaire.CommentaireFragment">
 
     <EditText
         android:id="@+id/editTextCommentaire"

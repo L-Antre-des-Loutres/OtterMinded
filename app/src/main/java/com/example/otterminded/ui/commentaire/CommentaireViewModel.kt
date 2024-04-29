@@ -1,4 +1,4 @@
-package com.example.otterminded.ui.main
+package com.example.otterminded.ui.commentaire
 
 import androidx.lifecycle.ViewModel
 

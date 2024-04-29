@@ -1,14 +1,16 @@
 package com.example.otterminded
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.otterminded.models.DAOInitializer
-import com.example.otterminded.models.Question
+import com.example.otterminded.notification.NotificationCreate
 import com.example.otterminded.ui.slideshow.SlideshowFragment
 
 class UpdateQuestionActivity : AppCompatActivity() {
@@ -40,7 +42,8 @@ class UpdateQuestionActivity : AppCompatActivity() {
     }
 
 // Méthode appelée lors du clic sur le bouton d'update
-    fun onUpdateButtonClick(view: View) {
+@RequiresApi(Build.VERSION_CODES.O)
+fun onUpdateButtonClick(view: View) {
         // Récupérer les nouvelles valeurs des champs EditText
         val newTheme = editTextTheme.text.toString()
         val newQuestion = editTextQuestion.text.toString()
@@ -52,10 +55,22 @@ class UpdateQuestionActivity : AppCompatActivity() {
             val rowsAffected = daoQuestion.updateQuestion(questionId, newTheme, newQuestion)
 
             if (rowsAffected > 0) {
+
+                // Créer une instance de NotificationAddQuestion
+                val notificationCreate = NotificationCreate()
+
+                // Utiliser la méthode createNotification pour afficher une notification
+                notificationCreate.createNotification(
+                    context = this,
+                    title = "Modification d'une question !",
+                    message = "La question : $newQuestion a été mise à jour en $newTheme"
+                )
+
                 // Afficher un message de succès
                 Toast.makeText(this, "La loutre a mis à jour ta question.", Toast.LENGTH_SHORT).show()
                 // Rediriger vers la page des questions après la mise à jour
-                val intent = Intent(this, SlideshowFragment::class.java)
+                val intent = Intent(this, MainActivity::class.java)
+
                 startActivity(intent)
             } else {
                 // Afficher un message d'erreur si la mise à jour a échoué
@@ -66,7 +81,6 @@ class UpdateQuestionActivity : AppCompatActivity() {
             Toast.makeText(this, "La loutre n'aime pas les champs de formulaire vides.", Toast.LENGTH_SHORT).show()
         }
     }
-    // Méthode appelée lors du clic sur le bouton de suppression
     // Méthode appelée lors du clic sur le bouton de suppression
     fun onDeleteButtonClick(view: View) {
         // Vérifiez d'abord si l'ID de la question est valide
