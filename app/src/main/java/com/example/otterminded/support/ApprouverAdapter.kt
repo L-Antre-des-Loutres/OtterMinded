@@ -8,12 +8,14 @@ import android.widget.TextView
 import android.widget.TextView.OnEditorActionListener
 import androidx.recyclerview.widget.RecyclerView
 import com.example.otterminded.R
+import com.example.otterminded.models.DAOQuestion
 import com.example.otterminded.models.Question
 
 class ApprouverAdapter(
     private val questions: MutableList<Question>,
-    onApprouverClickListener: (Long) -> Unit)
-    : RecyclerView.Adapter<ApprouverAdapter.ViewHolder>() {
+    private val daoQuestion: DAOQuestion, // Ajoutez une référence à DAOQuestion
+    onApprouverClickListener: (Long) -> Unit
+) : RecyclerView.Adapter<ApprouverAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val themeTextView: TextView = itemView.findViewById(R.id.themeTextView)
@@ -32,9 +34,19 @@ class ApprouverAdapter(
         holder.themeTextView.text = currentItem.theme
         holder.questionTextView.text = currentItem.question
 
-        // Utilisez "holder.approveButton" au lieu de "approveButton"
+        // Ajoutez un écouteur de clic au bouton "Approuver"
         holder.approveButton.setOnClickListener {
-            // Action à effectuer lors de l'appui sur le bouton "Approuver"
+            // Accédez à la question correspondante dans la liste
+            val clickedQuestion = questions[position]
+
+            // Mettez à jour la valeur approuver de la question à 1 via DAOQuestion
+            val rowsAffected = daoQuestion.approveQuestion(clickedQuestion.id)
+
+            // Si la mise à jour a réussi (au moins une ligne a été affectée)
+            if (rowsAffected > 0) {
+                // Notifiez l'adaptateur du changement
+                notifyDataSetChanged()
+            }
         }
     }
 

@@ -50,9 +50,9 @@ class ApprouverQuestionFragment : Fragment() {
         val daoQuestion = DAOInitializer.getDAOQuestion()
 
         // Récupération des questions à partir du DAO
-        val questions = daoQuestion.getAllQuestions()
+        val questions = daoQuestion.getQuestionsApprouver()
 
-        val adapter = ApprouverAdapter(questions) { questionId ->
+        val adapter = ApprouverAdapter(questions, daoQuestion) { questionId ->
             // Gérer le clic sur le bouton "Edit"
             val intent = Intent(requireContext(), UpdateQuestionActivity::class.java)
             intent.putExtra(
