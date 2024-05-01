@@ -89,7 +89,7 @@ class CommentaireFragment : Fragment() {
 
                 startActivity(intent)
             } else {
-                // Afficher un message d'erreur ou effectuer d'autres actions si nécessaire
+                // Afficher un message d'erreur
                 Toast.makeText(requireContext(), "Erreur lors de l'ajout du commentaire.", Toast.LENGTH_SHORT).show()
             }
         }

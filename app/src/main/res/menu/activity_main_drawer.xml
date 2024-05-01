@@ -14,6 +14,7 @@
             android:icon="@drawable/ic_questions_64"
             android:title="Questions"
             />
+        <!--
         <item
             android:id="@+id/nav_apropos"
             android:icon="@drawable/ic_more_64"
@@ -24,6 +25,7 @@
             android:icon="@drawable/ic_settings_64"
             android:title="Paramètres"
             />
+        -->
         <item
             android:id="@+id/nav_login"
             android:icon="@drawable/ic_auth_64"
@@ -33,11 +35,6 @@
             android:id="@+id/nav_profil"
             android:icon="@drawable/ic_profil_64"
             android:title="Profil"
-            />
-        <item
-            android:id="@+id/nav_approuver_question"
-            android:icon="@drawable/ic_profil_64"
-            android:title="Approuver question"
             />
     </group>
 </menu>

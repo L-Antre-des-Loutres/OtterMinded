@@ -71,7 +71,7 @@ class MainActivity : AppCompatActivity() {
             requestPermissions(arrayOf(Manifest.permission.POST_NOTIFICATIONS), RC_NOTIFICATIONS)
         }
 
-        // Notification à 17h via NotificationScheduler
+        // Notification à 17h40 via NotificationScheduler
         val hourOfDay = 17 // Heure souhaitée en heures du jour
         val minuteOfDay = 40
         NotificationScheduler.scheduleNotification(this, hourOfDay, minuteOfDay)
@@ -92,6 +92,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Vérifiez quel élément de menu a été cliqué et affichez un message approprié
         return when (item.itemId) {
+            /*
             R.id.action_settings -> {
                 showToast("Action Settings cliquée")
                 true
@@ -104,6 +105,7 @@ class MainActivity : AppCompatActivity() {
                 showToast("Action Questions cliquée")
                 true
             }
+             */
             R.id.action_admin -> {
                 val sharedPreferences = getSharedPreferences("user_session", Context.MODE_PRIVATE)
                 val admin = sharedPreferences.getInt("admin", -1)

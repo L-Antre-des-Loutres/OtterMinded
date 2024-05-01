@@ -19,7 +19,6 @@ class NotificationScheduler : BroadcastReceiver() {
         const val NOTIFICATION_ID = 1
 
         // Méthode pour programmer une notification à une heure spécifique
-        // Méthode pour programmer une notification à une heure spécifique
         fun scheduleNotification(context: Context, hourOfDay: Int, minuteOfDay: Int) {
             val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
             val intent = Intent(context, NotificationScheduler::class.java)

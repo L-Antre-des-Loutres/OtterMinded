@@ -24,21 +24,30 @@ class CommentaireFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var commentAdapter: AdminCommentaireAdapter
 
+    // Méthode onCreateView
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragement_admin_commentaire, container, false)
 
+        // Initialiser le Spinner
         spinner = view.findViewById(R.id.spinnerOptions)
+
+        // Initialiser le RecyclerView
         recyclerView = view.findViewById(R.id.vu_admin_commentaire)
 
+        // Initialiser les DAO
         daoQuestion = DAOQuestion(requireContext())
         daoUtilisateur = DAOUtilisateur(requireContext())
         daoCommentaire = DAOCommentaire(requireContext())
 
+        // Récupérer la liste des questions
         val questions = daoQuestion.getAllQuestions()
+
+        // Initialiser l'adaptateur du Spinner
         val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, questions.map { it.question })
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner.adapter = adapter
 
+        // Gérer la sélection d'une question dans le Spinner
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 val selectedQuestionId = questions[position].id
@@ -47,7 +56,7 @@ class CommentaireFragment : Fragment() {
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
-                // Faites quelque chose si rien n'est sélectionné (si nécessaire)
+                // Ne rien faire
             }
         }
 

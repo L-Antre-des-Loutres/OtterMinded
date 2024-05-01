@@ -7,10 +7,11 @@ import android.database.sqlite.SQLiteOpenHelper
 import org.json.JSONObject
 
 class BDHelper(context: Context) :
-    SQLiteOpenHelper(context, "OOtteeMindedeeee", null, 1) {
+    SQLiteOpenHelper(context, "BDDOtterMinded", null, 1) {
 
     private val context = context
 
+        // Action à réaliser lors de la création de l'application
     override fun onCreate(db: SQLiteDatabase) {
         createTableQuestion(db)
         createTableUtilisateur(db)
@@ -22,7 +23,7 @@ class BDHelper(context: Context) :
         insertDefaultCommentaires(db)
     }
 
-
+    // Création de la table question
     private fun createTableQuestion(db: SQLiteDatabase) {
         val createTableQuestion = """
             CREATE TABLE question (
@@ -34,7 +35,8 @@ class BDHelper(context: Context) :
         """.trimIndent()
         db.execSQL(createTableQuestion)
     }
-
+    
+    // Création de la table commentaire
     private fun createTableCommentaire(db: SQLiteDatabase) {
         val createTableCommentaire = """
         CREATE TABLE commentaire (
@@ -50,6 +52,7 @@ class BDHelper(context: Context) :
     }
 
 
+    // Création de la table utilisateur
     private fun createTableUtilisateur(db: SQLiteDatabase) {
         val createTableUtilisateur = """
             CREATE TABLE utilisateur (
@@ -63,6 +66,7 @@ class BDHelper(context: Context) :
         db.execSQL(createTableUtilisateur)
     }
 
+    // Insertion de données par défaut
     private fun insertDefaultUtilisateur(db: SQLiteDatabase) {
         // Lecture du fichier JSON
         val jsonString = context.assets.open("initialUsers.json").bufferedReader().use {
@@ -155,6 +159,7 @@ class BDHelper(context: Context) :
     }
 
 
+    // Action à réaliser lors de la mise à jour de l'application
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         db.execSQL("DROP TABLE IF EXISTS question")
         db.execSQL("DROP TABLE IF EXISTS utilisateur")

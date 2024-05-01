@@ -1,11 +1,11 @@
 package com.example.otterminded.support
+import android.app.AlertDialog
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ExpandableListView.OnChildClickListener
 import android.widget.TextView
-import android.widget.TextView.OnEditorActionListener
 import androidx.recyclerview.widget.RecyclerView
 import com.example.otterminded.R
 import com.example.otterminded.models.DAOQuestion
@@ -13,7 +13,8 @@ import com.example.otterminded.models.Question
 
 class ApprouverAdapter(
     private val questions: MutableList<Question>,
-    private val daoQuestion: DAOQuestion, // Ajoutez une référence à DAOQuestion
+    private val daoQuestion: DAOQuestion,
+    private val context: Context,
     onApprouverClickListener: (Long) -> Unit
 ) : RecyclerView.Adapter<ApprouverAdapter.ViewHolder>() {
 
@@ -36,18 +37,23 @@ class ApprouverAdapter(
 
         // Ajoutez un écouteur de clic au bouton "Approuver"
         holder.approveButton.setOnClickListener {
-            // Accédez à la question correspondante dans la liste
-            val clickedQuestion = questions[position]
+            // Afficher une boîte de dialogue de confirmation
+            showConfirmationDialog(currentItem)
+        }
+    }
 
-            // Mettez à jour la valeur approuver de la question à 1 via DAOQuestion
-            val rowsAffected = daoQuestion.approveQuestion(clickedQuestion.id)
-
-            // Si la mise à jour a réussi (au moins une ligne a été affectée)
-            if (rowsAffected > 0) {
+    private fun showConfirmationDialog(question: Question) {
+        AlertDialog.Builder(context)
+            .setTitle("Confirmation")
+            .setMessage("Êtes-vous sûr de vouloir approuver cette question ?")
+            .setPositiveButton("Oui") { _, _ ->
+                // Approuver la question
+                daoQuestion.approveQuestion(question.id)
                 // Notifiez l'adaptateur du changement
                 notifyDataSetChanged()
             }
-        }
+            .setNegativeButton("Non", null)
+            .show()
     }
 
     override fun getItemCount(): Int {
