@@ -1,0 +1,28 @@
+{
+  "utilisateurs": [
+    {
+      "nom": "Coco",
+      "email": "coco@coco.com",
+      "mot_de_passe": "coco",
+      "admin": 0
+    },
+    {
+      "nom": "a",
+      "email": "a",
+      "mot_de_passe": "a",
+      "admin": 0
+    },
+    {
+      "nom": "User",
+      "email": "user@user.com",
+      "mot_de_passe": "user",
+      "admin": 0
+    },
+    {
+      "nom": "Admin",
+      "email": "admin",
+      "mot_de_passe": "admin",
+      "admin": 1
+    }
+  ]
+}
