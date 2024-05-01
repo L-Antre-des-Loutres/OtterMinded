@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 class SlideshowViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "Question"
+        value = "Question Approuvées"
     }
     val text: LiveData<String> = _text
 }

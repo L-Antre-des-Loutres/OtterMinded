@@ -1,5 +1,6 @@
 package com.example.otterminded.models
 
+// Classe Commentaire
 data class Commentaire(
     val id: Long,
     val id_question: Long,

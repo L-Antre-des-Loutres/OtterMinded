@@ -11,22 +11,30 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.otterminded.R
 import com.example.otterminded.models.Question
 
+// Adaptateur pour les questions
 class QuestionAdapter(
+
+    // Liste des questions
     private val questions: MutableList<Question>,
+
+    // Ajout de l'interface pour gérer les clics sur le bouton "Edit"
     private val onEditClickListener: (Long) -> Unit // Interface pour gérer les clics sur le bouton "Edit"
 ) : RecyclerView.Adapter<QuestionAdapter.ViewHolder>() {
 
+    // Classe ViewHolder
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val themeTextView: TextView = itemView.findViewById(R.id.themeTextView)
         val questionTextView: TextView = itemView.findViewById(R.id.questionTextView)
     }
 
+    // Méthode onCreateViewHolder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_question, parent, false)
         return ViewHolder(view)
     }
 
+    // Méthode onBindViewHolder
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         // Récupérer l'ID de l'utilisateur depuis les préférences partagées
@@ -37,6 +45,7 @@ class QuestionAdapter(
         holder.questionTextView.text = question.question
     }
 
+    // Méthode getItemCount
     override fun getItemCount(): Int {
         return questions.size
     }

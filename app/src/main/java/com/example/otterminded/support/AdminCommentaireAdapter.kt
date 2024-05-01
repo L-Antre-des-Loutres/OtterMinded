@@ -11,7 +11,7 @@ import com.example.otterminded.models.Commentaire
 import com.example.otterminded.models.DAOUtilisateur
 
 class AdminCommentaireAdapter(
-    var commentaires: MutableList<Commentaire>, // Définir commentaires comme MutableList
+  var commentaires: MutableList<Commentaire>,
     private val daoUtilisateur: DAOUtilisateur,
     private val onDeleteClickListener: (Int) -> Unit
 ) : RecyclerView.Adapter<AdminCommentaireAdapter.ViewHolder>() {

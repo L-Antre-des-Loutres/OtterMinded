@@ -54,14 +54,10 @@ class SlideshowFragment : Fragment() {
         val daoQuestion = DAOInitializer.getDAOQuestion()
 
         // Récupération des questions à partir du DAO
-        val questions = daoQuestion.getAllQuestions()
+        val questions = daoQuestion.getQuestionsApprouvees()
 
         // Création de l'adaptateur avec les questions récupérées
         val adapter = QuestionAdapter(questions) { questionId ->
-            // Gérer le clic sur le bouton "Edit"
-            val intent = Intent(requireContext(), UpdateQuestionActivity::class.java)
-            intent.putExtra("question_id", questionId) // Passage de l'ID de la question à l'activité UpdateQuestionActivity
-            startActivity(intent)
         }
 
         // Liaison de l'adaptateur avec le RecyclerView

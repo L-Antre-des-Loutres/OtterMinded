@@ -20,6 +20,7 @@ class DAOCommentaire(context: Context) {
     }
 
     @SuppressLint("Range")
+    // Obtenir tous les commentaires
     fun getAllCommentaires(): ArrayList<Commentaire> {
         val commentaires = ArrayList<Commentaire>()
         val db = dbHelper.readableDatabase
@@ -38,6 +39,7 @@ class DAOCommentaire(context: Context) {
     }
 
     @SuppressLint("Range")
+    // Obtenir un commentaire par son id
     fun getCommentaireById(id: Long): Commentaire? {
         val db = dbHelper.readableDatabase
         val cursor = db.rawQuery("SELECT * FROM commentaire WHERE id = ?", arrayOf(id.toString()))
@@ -54,6 +56,7 @@ class DAOCommentaire(context: Context) {
     }
 
     @SuppressLint("Range")
+    // Obtenir un commentaire par l'id de l'utilisateur
     fun getCommentaireByUserId(id_utilisateur: Long): Commentaire? {
         val db = dbHelper.readableDatabase
         val cursor = db.rawQuery("SELECT * FROM commentaire WHERE id_utilisateur = ?", arrayOf(id_utilisateur.toString()))
@@ -71,6 +74,7 @@ class DAOCommentaire(context: Context) {
     }
 
     @SuppressLint("Range")
+    // Obtenir un commentaire par l'id de la question
     fun getCommentaireByQuestionId(idQuestion: Long): List<Commentaire> {
         val db = dbHelper.readableDatabase
         val cursor = db.rawQuery("SELECT * FROM commentaire WHERE id_question = ?", arrayOf(idQuestion.toString()))
@@ -90,6 +94,7 @@ class DAOCommentaire(context: Context) {
         return commentaires
     }
 
+    // Supprimer un commentaire par son id
     fun deleteCommentaire(id: Long): Int {
         val db = dbHelper.writableDatabase
         val deletedRows = db.delete("commentaire", "id = ?", arrayOf(id.toString()))

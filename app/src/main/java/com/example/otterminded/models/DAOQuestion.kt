@@ -8,6 +8,7 @@ class DAOQuestion(context: Context) {
 
     private val dbHelper: BDHelper = BDHelper(context)
 
+    // Ajouter une question
     fun addQuestion(theme: String, question: String): Long {
         val db = dbHelper.writableDatabase
         val values = ContentValues().apply {
@@ -19,6 +20,7 @@ class DAOQuestion(context: Context) {
         return newRowId
     }
 
+    // Obtenir toutes les questions
     fun getAllQuestions(): ArrayList<Question> {
         val questions = ArrayList<Question>()
         val db = dbHelper.readableDatabase
@@ -36,6 +38,7 @@ class DAOQuestion(context: Context) {
         return questions
     }
 
+    // Obtenir une question par son id
     fun getQuestionById(id: Long): Question? {
         val db = dbHelper.readableDatabase
         val cursor = db.rawQuery("SELECT * FROM question WHERE id = ?", arrayOf(id.toString()))
@@ -51,6 +54,7 @@ class DAOQuestion(context: Context) {
         return question
     }
 
+    // Mettre à jour une question
     fun updateQuestion(id: Long, theme: String, question: String): Int {
         val db = dbHelper.writableDatabase
         val values = ContentValues().apply {
@@ -62,6 +66,7 @@ class DAOQuestion(context: Context) {
         return rowsAffected
     }
 
+    // Supprimer une question par son id
     fun deleteQuestion(id: Long): Int {
         val db = dbHelper.writableDatabase
         val rowsAffected = db.delete("question", "id = ?", arrayOf(id.toString()))
@@ -69,6 +74,7 @@ class DAOQuestion(context: Context) {
         return rowsAffected
     }
 
+    // Obtenir le nombre de questions
     fun getNbQuestion(): Int {
         val db = dbHelper.readableDatabase
         val cursor = db.rawQuery("SELECT COUNT(*) FROM question", null)
@@ -80,6 +86,8 @@ class DAOQuestion(context: Context) {
         db.close()
         return count
     }
+
+    // Approuver une question
     fun approveQuestion(id: Long): Int {
         val db = dbHelper.writableDatabase
         val values = ContentValues().apply {
@@ -89,10 +97,29 @@ class DAOQuestion(context: Context) {
         db.close()
         return rowsAffected
     }
+    // Obtenir les questions à approuver
     fun getQuestionsApprouver(): ArrayList<Question> {
         val questions = ArrayList<Question>()
         val db = dbHelper.readableDatabase
         val cursor = db.rawQuery("SELECT * FROM question WHERE approuver = 0", null)
+        while (cursor.moveToNext()) {
+            val id = cursor.getLong(cursor.getColumnIndex("id"))
+            val theme = cursor.getString(cursor.getColumnIndex("theme"))
+            val questionText = cursor.getString(cursor.getColumnIndex("question"))
+            val approuver = cursor.getInt(cursor.getColumnIndex("approuver"))
+            val question = Question(id, theme, questionText, approuver)
+            questions.add(question)
+        }
+        cursor.close()
+        db.close()
+        return questions
+    }
+
+    // Obtenir les questions approuvées
+    fun getQuestionsApprouvees(): ArrayList<Question> {
+        val questions = ArrayList<Question>()
+        val db = dbHelper.readableDatabase
+        val cursor = db.rawQuery("SELECT * FROM question WHERE approuver = 1", null)
         while (cursor.moveToNext()) {
             val id = cursor.getLong(cursor.getColumnIndex("id"))
             val theme = cursor.getString(cursor.getColumnIndex("theme"))

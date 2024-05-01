@@ -1,5 +1,6 @@
 package com.example.otterminded.models
 
+// Classe Utilisateur
 class Utilisateur(
     val id: Long,
     val nom: String,
