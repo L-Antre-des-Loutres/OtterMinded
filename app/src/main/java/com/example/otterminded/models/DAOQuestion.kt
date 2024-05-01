@@ -89,10 +89,26 @@ class DAOQuestion(context: Context) {
         db.close()
         return rowsAffected
     }
-    fun getQuestionsApprouver(): ArrayList<Question> {
+    fun getQuestionsNonApprouver(): ArrayList<Question> {
         val questions = ArrayList<Question>()
         val db = dbHelper.readableDatabase
         val cursor = db.rawQuery("SELECT * FROM question WHERE approuver = 0", null)
+        while (cursor.moveToNext()) {
+            val id = cursor.getLong(cursor.getColumnIndex("id"))
+            val theme = cursor.getString(cursor.getColumnIndex("theme"))
+            val questionText = cursor.getString(cursor.getColumnIndex("question"))
+            val approuver = cursor.getInt(cursor.getColumnIndex("approuver"))
+            val question = Question(id, theme, questionText, approuver)
+            questions.add(question)
+        }
+        cursor.close()
+        db.close()
+        return questions
+    }
+    fun getQuestionsApprouver(): ArrayList<Question> {
+        val questions = ArrayList<Question>()
+        val db = dbHelper.readableDatabase
+        val cursor = db.rawQuery("SELECT * FROM question WHERE approuver = 1", null)
         while (cursor.moveToNext()) {
             val id = cursor.getLong(cursor.getColumnIndex("id"))
             val theme = cursor.getString(cursor.getColumnIndex("theme"))
