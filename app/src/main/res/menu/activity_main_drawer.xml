@@ -12,12 +12,12 @@
         <item
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_questions_64"
-            android:title="Questions"
+            android:title="@string/action_questions"
             />
         <item
             android:id="@+id/nav_apropos"
             android:icon="@drawable/ic_more_64"
-            android:title="A propos"
+            android:title="@string/action_apropos"
             />
         <item
             android:id="@+id/nav_settings"
@@ -27,12 +27,12 @@
         <item
             android:id="@+id/nav_login"
             android:icon="@drawable/ic_auth_64"
-            android:title="Connexion"
+            android:title="@string/action_login"
             />
         <item
             android:id="@+id/nav_profil"
             android:icon="@drawable/ic_profil_64"
-            android:title="Profil"
+            android:title="@string/action_profil"
             />
         <item
             android:id="@+id/nav_approuver_question"

@@ -6,6 +6,7 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_login">Connexion</string>
+    <string name="action_apropos">A propos</string>
     <string name="action_profil">Profil</string>
     <string name="action_questions">Questions</string>
 
