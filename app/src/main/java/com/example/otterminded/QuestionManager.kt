@@ -19,7 +19,7 @@ class QuestionManager(private val context: Context) {
     // Méthode pour récupérer toutes les questions
     private fun getAllQuestions(): List<Pair<Long, String>> {
         val daoQuestion = DAOQuestion(context)
-        return daoQuestion.getQuestionsApprouvees().map { question ->
+        return daoQuestion.getQuestionsApprouver().map { question ->
             Pair(question.id, question.question)
         }
     }
