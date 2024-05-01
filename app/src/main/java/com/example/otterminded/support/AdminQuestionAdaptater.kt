@@ -12,22 +12,29 @@ import com.example.otterminded.R
 import com.example.otterminded.models.Question
 
 class AdminQuestionAdaptater(
+
+    // Ajout de la liste des questions
     private val questions: MutableList<Question>,
+
+    // Ajout de l'interface pour gérer les clics sur le bouton "Edit"
     private val onEditClickListener: (Long) -> Unit // Interface pour gérer les clics sur le bouton "Edit"
 ) : RecyclerView.Adapter<AdminQuestionAdaptater.ViewHolder>() {
 
+    // Classe ViewHolder
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val themeTextView: TextView = itemView.findViewById(R.id.themeTextView)
         val questionTextView: TextView = itemView.findViewById(R.id.questionTextView)
         val editButton: Button = itemView.findViewById(R.id.editButton) // Ajout du bouton "Edit"
     }
 
+    // Méthode onCreateViewHolder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_admin_question, parent, false)
         return ViewHolder(view)
     }
 
+    // Méthode onBindViewHolder
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         // Récupérer l'ID de l'utilisateur depuis les préférences partagées
@@ -50,6 +57,7 @@ class AdminQuestionAdaptater(
         }
     }
 
+    // Méthode getItemCount
     override fun getItemCount(): Int {
         return questions.size
     }

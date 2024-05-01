@@ -7,6 +7,7 @@ class DAOUtilisateur(context: Context) {
 
     private val dbHelper: BDHelper = BDHelper(context)
 
+    // Fonction pour essayer de se connecter
     fun tryLogin(email: String, password: String): Utilisateur? {
         val db = dbHelper.readableDatabase
         val cursor = db.rawQuery(
@@ -25,6 +26,7 @@ class DAOUtilisateur(context: Context) {
         return utilisateur
     }
 
+    // Fonction pour obtenir tous les utilisateurs
     fun getAllUsers(): ArrayList<Utilisateur> {
         val users = ArrayList<Utilisateur>()
         val db = dbHelper.readableDatabase
@@ -45,6 +47,7 @@ class DAOUtilisateur(context: Context) {
         return users
     }
 
+    // Fonction pour obtenir un utilisateur par son email
     fun getUserByEmail(email: String): Utilisateur? {
         val db = dbHelper.readableDatabase
         val cursor = db.rawQuery("SELECT * FROM utilisateur WHERE email = ?", arrayOf(email))
@@ -61,6 +64,7 @@ class DAOUtilisateur(context: Context) {
         return utilisateur
     }
 
+    // Fonction pour obtenir un utilisateur par son nom
     fun getUserByUsername(username: String): Utilisateur? {
         val db = dbHelper.readableDatabase
         val cursor = db.rawQuery("SELECT * FROM utilisateur WHERE nom = ?", arrayOf(username))
@@ -77,6 +81,7 @@ class DAOUtilisateur(context: Context) {
         return utilisateur
     }
 
+    // Fonction pour obtenir un utilisateur par son id
     fun getUserById(id: Long): Utilisateur? {
         val db = dbHelper.readableDatabase
         val cursor = db.rawQuery("SELECT * FROM utilisateur WHERE id = ?", arrayOf(id.toString()))
@@ -95,6 +100,7 @@ class DAOUtilisateur(context: Context) {
         return utilisateur
     }
 
+    // Fonction pour savoir si un utilisateur est admin
     fun userIsAdmin(email: String): Boolean {
         val db = dbHelper.readableDatabase
         val cursor = db.rawQuery("SELECT * FROM utilisateur WHERE email = ?", arrayOf(email))
@@ -110,6 +116,7 @@ class DAOUtilisateur(context: Context) {
         return isAdmin
     }
 
+    // Fonction pour ajouter un utilisateur
     fun addUser(nom: String, email: String, motDePasse: String): Long {
         val db = dbHelper.writableDatabase
         val values = ContentValues().apply {
@@ -122,6 +129,7 @@ class DAOUtilisateur(context: Context) {
         return newRowId
     }
 
+    // Fonction pour mettre à jour un utilisateur
     fun updateUser(id: Long, nom: String, email: String, motDePasse: String): Int {
         val db = dbHelper.writableDatabase
         val values = ContentValues().apply {
@@ -134,6 +142,7 @@ class DAOUtilisateur(context: Context) {
         return rowsAffected
     }
 
+    // Fonction pour mettre à jour le nom d'un utilisateur
     fun updateUsername(id: Long, nom: String): Int {
         val db = dbHelper.writableDatabase
         val values = ContentValues().apply {
@@ -144,6 +153,7 @@ class DAOUtilisateur(context: Context) {
         return rowsAffected
     }
 
+    // Fonction pour mettre à jour l'email d'un utilisateur
     fun updateEmail(id: Long, email: String): Int {
         val db = dbHelper.writableDatabase
         val values = ContentValues().apply {
@@ -154,6 +164,7 @@ class DAOUtilisateur(context: Context) {
         return rowsAffected
     }
 
+    // Fonction pour mettre à jour le mot de passe d'un utilisateur
     fun updatePassword(id: Long, motDePasse: String): Int {
         val db = dbHelper.writableDatabase
         val values = ContentValues().apply {
@@ -164,6 +175,7 @@ class DAOUtilisateur(context: Context) {
         return rowsAffected
     }
 
+    // Fonction pour supprimer un utilisateur
     fun deleteUser(id: Long): Int {
         val db = dbHelper.writableDatabase
         val rowsAffected = db.delete("utilisateur", "id = ?", arrayOf(id.toString()))

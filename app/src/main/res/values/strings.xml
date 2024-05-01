@@ -40,5 +40,6 @@
     <string name="tab_text_1">Question</string>
     <string name="tab_text_2">Commentaire</string>
     <string name="tab_text_3">Utilisateur</string>
+    <string name="tab_text_4">Approuver Question</string>
 
 </resources>

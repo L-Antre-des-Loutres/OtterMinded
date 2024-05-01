@@ -65,7 +65,7 @@ class LoginFragment : Fragment() {
                     Toast.makeText(requireContext(), "Email ou MDP incorrect : Mail : "+email+" MDP : "+password, Toast.LENGTH_SHORT).show()
                 }
             } else {
-                // Tous les champs ne sont pas compelt
+                // Tous les champs ne sont pas remplis
                 Toast.makeText(requireContext(), "Veuillez remplir tous les champs", Toast.LENGTH_SHORT).show()
             }
         }

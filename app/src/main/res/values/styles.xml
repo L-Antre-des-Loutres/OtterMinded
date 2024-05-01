@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Définition du style TabTextAppearance -->
+    <style name="TabTextAppearance">
+        <item name="android:textSize">15sp</item> <!-- Taille de texte plus petite -->
+    </style>
+</resources>

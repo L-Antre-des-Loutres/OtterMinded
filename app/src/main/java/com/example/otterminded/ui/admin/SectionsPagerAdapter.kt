@@ -5,11 +5,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.example.otterminded.R
+import com.example.otterminded.ui.approuverQuestion.ApprouverQuestionFragment
 
+// Liste des fragments à afficher et des titres associés
 private val TAB_TITLES = arrayOf(
     R.string.tab_text_1,
     R.string.tab_text_2,
-    R.string.tab_text_3
+    R.string.tab_text_3,
+    R.string.tab_text_4
 )
 
 /**
@@ -22,19 +25,20 @@ class SectionsPagerAdapter(private val context: Context, fm: FragmentManager) :
     override fun getItem(position: Int): Fragment {
         // Retourne un fragment différent en fonction de la position de la page
         return when (position) {
-            0 -> QuestionFragment() // Utilisation directe du nom de classe du premier fragment
-            1 -> CommentaireFragment() // Utilisation directe du nom de classe du deuxième fragment
-            2 -> UtilisateurFragement() // Utilisation directe du nom de classe du troisième fragment
-        else -> ErreurFragement() // Utilisation directe du nom de classe du premier fragment
+            0 -> QuestionFragment() // Lancement du fragement de question
+            1 -> CommentaireFragment() // Lancement du fragement de commentaire
+            2 -> UtilisateurFragement() // Lancement du fragement d'utilisateur
+            3-> ApprouverQuestionFragment() // Lancement du fragement d'approuver question
+        else -> ErreurFragement() // Lancement du fragement d'erreur
         }
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
-        return context.resources.getString(TAB_TITLES[position])
+        return context.resources.getString(TAB_TITLES[position] as Int)
     }
 
     override fun getCount(): Int {
-        // Affiche 3 pages au total.
-        return 3
+        // Affiche 4 pages au total.
+        return 4
     }
 }

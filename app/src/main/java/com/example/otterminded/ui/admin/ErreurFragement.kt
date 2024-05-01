@@ -10,7 +10,7 @@ import com.example.otterminded.R
 class ErreurFragement : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
+        // Afficher le fragment par défaut
         return inflater.inflate(R.layout.fragement_admin_utilisateur, container, false)
     }
 }

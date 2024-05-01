@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper
 class BDHelper(context: Context) :
     SQLiteOpenHelper(context, "OtterrMindedd", null, 1) {
 
+        // Action à réaliser lors de la création de l'application
     override fun onCreate(db: SQLiteDatabase) {
         createTableQuestion(db)
         insertDefaultData(db)
@@ -17,7 +18,7 @@ class BDHelper(context: Context) :
         insertDefaultUtilisateur(db)
     }
 
-
+    // Création de la table question
     private fun createTableQuestion(db: SQLiteDatabase) {
         val createTableQuestion = """
             CREATE TABLE question (
@@ -30,20 +31,23 @@ class BDHelper(context: Context) :
         db.execSQL(createTableQuestion)
     }
 
+    // Insertion de données par défaut
     private fun insertDefaultData(db: SQLiteDatabase) {
         val defaultData = arrayOf(
-            arrayOf("Histoire", "Quand a eu lieu la Révolution française ?"),
-            arrayOf("Géographie", "Quel est le plus grand fleuve du monde ?"),
-            arrayOf("Sciences", "Quelle est la formule chimique de l'eau ?")
+            arrayOf("Histoire", "Quand a eu lieu la Révolution française ?", "1"),
+            arrayOf("Géographie", "Quel est le plus grand fleuve du monde ?", "0"),
+            arrayOf("Sciences", "Quelle est la formule chimique de l'eau ?", "0")
         )
         for (data in defaultData) {
             val values = ContentValues()
             values.put("theme", data[0])
             values.put("question", data[1])
+            values.put("approuver", data[2])
             db.insert("question", null, values)
         }
     }
 
+    // Création de la table commentaire
     private fun createTableCommentaire(db: SQLiteDatabase) {
         val createTableCommentaire = """
         CREATE TABLE commentaire (
@@ -59,6 +63,7 @@ class BDHelper(context: Context) :
     }
 
 
+    // Création de la table utilisateur
     private fun createTableUtilisateur(db: SQLiteDatabase) {
         val createTableUtilisateur = """
             CREATE TABLE utilisateur (
@@ -72,6 +77,7 @@ class BDHelper(context: Context) :
         db.execSQL(createTableUtilisateur)
     }
 
+    // Insertion de données par défaut
     private fun insertDefaultUtilisateur(db: SQLiteDatabase) {
         db.execSQL("INSERT INTO utilisateur (nom, email, mot_de_passe) VALUES ('Coco', 'coco@coco.com', 'coco')")
         db.execSQL("INSERT INTO utilisateur (nom, email, mot_de_passe) VALUES ('a', 'a', 'a')")
@@ -79,6 +85,7 @@ class BDHelper(context: Context) :
         db.execSQL("INSERT INTO utilisateur (nom, email, mot_de_passe, admin) VALUES ('admin', 'admin', 'admin', 1)")
     }
 
+    // Action à réaliser lors de la mise à jour de l'application
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         db.execSQL("DROP TABLE IF EXISTS question")
         db.execSQL("DROP TABLE IF EXISTS utilisateur")

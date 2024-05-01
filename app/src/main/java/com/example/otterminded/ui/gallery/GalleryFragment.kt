@@ -11,12 +11,11 @@ import com.example.otterminded.databinding.FragmentGalleryBinding
 
 class GalleryFragment : Fragment() {
 
+    // Initialisation de _binding à null
     private var _binding: FragmentGalleryBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
+    // Initialisation de binding à partir de _binding
     private val binding get() = _binding!!
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -35,6 +34,7 @@ class GalleryFragment : Fragment() {
         return root
     }
 
+    // Suppression de _binding
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
