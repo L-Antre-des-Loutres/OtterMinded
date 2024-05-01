@@ -2,19 +2,24 @@ package com.example.otterminded.models
 
 import android.content.ContentValues
 import android.content.Context
-import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import org.json.JSONObject
 
 class BDHelper(context: Context) :
-    SQLiteOpenHelper(context, "OtterrMindedd", null, 1) {
+    SQLiteOpenHelper(context, "OOtteeMindedeeee", null, 1) {
+
+    private val context = context
 
     override fun onCreate(db: SQLiteDatabase) {
         createTableQuestion(db)
-        insertDefaultData(db)
         createTableUtilisateur(db)
         createTableCommentaire(db)
+
+        // Insertion de données par défaut depuis les fichiers JSON
         insertDefaultUtilisateur(db)
+        insertDefaultQuestion(db)
+        insertDefaultCommentaires(db)
     }
 
 
@@ -28,20 +33,6 @@ class BDHelper(context: Context) :
             )
         """.trimIndent()
         db.execSQL(createTableQuestion)
-    }
-
-    private fun insertDefaultData(db: SQLiteDatabase) {
-        val defaultData = arrayOf(
-            arrayOf("Histoire", "Quand a eu lieu la Révolution française ?"),
-            arrayOf("Géographie", "Quel est le plus grand fleuve du monde ?"),
-            arrayOf("Sciences", "Quelle est la formule chimique de l'eau ?")
-        )
-        for (data in defaultData) {
-            val values = ContentValues()
-            values.put("theme", data[0])
-            values.put("question", data[1])
-            db.insert("question", null, values)
-        }
     }
 
     private fun createTableCommentaire(db: SQLiteDatabase) {
@@ -73,11 +64,96 @@ class BDHelper(context: Context) :
     }
 
     private fun insertDefaultUtilisateur(db: SQLiteDatabase) {
-        db.execSQL("INSERT INTO utilisateur (nom, email, mot_de_passe) VALUES ('Coco', 'coco@coco.com', 'coco')")
-        db.execSQL("INSERT INTO utilisateur (nom, email, mot_de_passe) VALUES ('a', 'a', 'a')")
-        db.execSQL("INSERT INTO utilisateur (nom, email, mot_de_passe) VALUES ('User', 'user@user.com', 'user')")
-        db.execSQL("INSERT INTO utilisateur (nom, email, mot_de_passe, admin) VALUES ('admin', 'admin', 'admin', 1)")
+        // Lecture du fichier JSON
+        val jsonString = context.assets.open("initialUsers.json").bufferedReader().use {
+            it.readText()
+        }
+
+        // Conversion du JSON en objet JSON
+        val jsonObject = JSONObject(jsonString)
+
+        // Récupération du tableau d'utilisateurs
+        val utilisateursArray = jsonObject.getJSONArray("utilisateurs")
+
+        for (i in 0 until utilisateursArray.length()) {
+            val utilisateurObj = utilisateursArray.getJSONObject(i)
+
+            // Récupération des données de chaque utilisateur
+            val nom = utilisateurObj.getString("nom")
+            val email = utilisateurObj.getString("email")
+            val motDePasse = utilisateurObj.getString("mot_de_passe")
+            val isAdmin = utilisateurObj.getInt("admin") == 1
+
+            val values = ContentValues().apply {
+                put("nom", nom)
+                put("email", email)
+                put("mot_de_passe", motDePasse)
+                put("admin",
+                    if (isAdmin) 1 else 0
+                )
+            }
+            db.insert("utilisateur", null, values)
+        }
     }
+
+    private fun insertDefaultQuestion(db: SQLiteDatabase) {
+        // Lecture du fichier JSON
+        val jsonString = context.assets.open("initialQuestions.json").bufferedReader().use {
+            it.readText()
+        }
+
+        // Conversion du JSON en objet JSON
+        val jsonObject = JSONObject(jsonString)
+
+        // Récupération du tableau de questions
+        val questionsArray = jsonObject.getJSONArray("questions")
+
+        // Insertion des questions dans la base de données
+        for (i in 0 until questionsArray.length()) {
+            val questionObj = questionsArray.getJSONObject(i)
+
+            // Récupération des données de chaque question
+            val theme = questionObj.getString("theme")
+            val question = questionObj.getString("titre")
+
+            val values = ContentValues().apply {
+                put("theme", theme)
+                put("question", question)
+            }
+            db.insert("question", null, values)
+        }
+    }
+
+    private fun insertDefaultCommentaires(db: SQLiteDatabase) {
+        // Lecture du fichier JSON
+        val jsonString = context.assets.open("initialCommentaires.json").bufferedReader().use {
+            it.readText()
+        }
+
+        // Conversion du JSON en objet JSON
+        val jsonObject = JSONObject(jsonString)
+
+        // Récupération du tableau de commentaires
+        val commentairesArray = jsonObject.getJSONArray("commentaires")
+
+        // Insertion des commentaires dans la base de données
+        for (i in 0 until commentairesArray.length()) {
+            val commentaireObj = commentairesArray.getJSONObject(i)
+
+            // Récupération des données de chaque commentaire
+            val idQuestion = commentaireObj.getInt("id_question")
+            val idUtilisateur = commentaireObj.getInt("id_utilisateur")
+            val commentaireText = commentaireObj.getString("commentaire")
+
+            val values = ContentValues().apply {
+                put("id_question", idQuestion)
+                put("id_utilisateur", idUtilisateur)
+                put("commentaire", commentaireText)
+            }
+            db.insert("commentaire", null, values)
+        }
+    }
+
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         db.execSQL("DROP TABLE IF EXISTS question")

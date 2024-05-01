@@ -1,0 +1,29 @@
+{
+  "commentaires": [
+    {
+      "id_question": 1,
+      "id_utilisateur": 1,
+      "commentaire": "5 mai 1789 – 9 novembre 1799"
+    },
+    {
+      "id_question": 1,
+      "id_utilisateur": 2,
+      "commentaire": "Bonne question! Qui a la réponse?"
+    },
+    {
+      "id_question": 2,
+      "id_utilisateur": 2,
+      "commentaire": "Je pense que la réponse est 42"
+    },
+    {
+      "id_question": 2,
+      "id_utilisateur": 4,
+      "commentaire": "C'est le Nil."
+    },
+    {
+      "id_question": 3,
+      "id_utilisateur": 3,
+      "commentaire": "Oh je sais! Je sais! La formule chimique de l'eau est H2O!"
+    }
+  ]
+}
