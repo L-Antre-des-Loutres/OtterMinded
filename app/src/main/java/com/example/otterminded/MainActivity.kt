@@ -92,6 +92,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Vérifiez quel élément de menu a été cliqué et affichez un message approprié
         return when (item.itemId) {
+            /*
             R.id.action_settings -> {
                 showToast("Action Settings cliquée")
                 true
@@ -104,6 +105,7 @@ class MainActivity : AppCompatActivity() {
                 showToast("Action Questions cliquée")
                 true
             }
+             */
             R.id.action_admin -> {
                 val sharedPreferences = getSharedPreferences("user_session", Context.MODE_PRIVATE)
                 val admin = sharedPreferences.getInt("admin", -1)
