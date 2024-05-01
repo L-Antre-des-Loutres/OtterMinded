@@ -97,8 +97,7 @@ class DAOQuestion(context: Context) {
         db.close()
         return rowsAffected
     }
-    // Obtenir les questions à approuver
-    fun getQuestionsApprouver(): ArrayList<Question> {
+    fun getQuestionsNonApprouver(): ArrayList<Question> {
         val questions = ArrayList<Question>()
         val db = dbHelper.readableDatabase
         val cursor = db.rawQuery("SELECT * FROM question WHERE approuver = 0", null)
@@ -114,9 +113,8 @@ class DAOQuestion(context: Context) {
         db.close()
         return questions
     }
-
+    fun getQuestionsApprouver(): ArrayList<Question> {
     // Obtenir les questions approuvées
-    fun getQuestionsApprouvees(): ArrayList<Question> {
         val questions = ArrayList<Question>()
         val db = dbHelper.readableDatabase
         val cursor = db.rawQuery("SELECT * FROM question WHERE approuver = 1", null)

@@ -54,7 +54,8 @@ class SlideshowFragment : Fragment() {
         val daoQuestion = DAOInitializer.getDAOQuestion()
 
         // Récupération des questions à partir du DAO
-        val questions = daoQuestion.getQuestionsApprouvees()
+
+        val questions = daoQuestion.getQuestionsApprouver()
 
         // Création de l'adaptateur avec les questions récupérées
         val adapter = QuestionAdapter(questions) { questionId ->
