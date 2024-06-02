@@ -1,4 +1,5 @@
 package com.example.otterminded.models
+
 import android.content.ContentValues
 import android.content.Context
 import android.util.Log
@@ -21,6 +22,21 @@ class DAOQuestion(context: Context) {
 
     private val dbHelper: BDHelper = BDHelper(context)
 
+    // Méthode pour créer un log
+    private fun createLog(idUser: Int, type: String, statut: String, idQuestion: Long?, idCommentaire: Long?) {
+        val db = dbHelper.writableDatabase
+        val valuesLogs = ContentValues().apply {
+            put("id_user", idUser)
+            put("type", type)
+            put("statut", statut)
+            put("id_question", idQuestion)
+            put("id_commentaire", idCommentaire)
+        }
+        db.insert("logs", null, valuesLogs)
+        Log.i("Log", "Log créé : id_user $idUser, type : $type, statut : $statut, id_question : $idQuestion, id_commentaire : $idCommentaire")
+        db.close()
+    }
+
     // Ajouter une question et ajouter dans les logs
     fun addQuestion(theme: String, question: String): Long {
         val db = dbHelper.writableDatabase
@@ -30,18 +46,9 @@ class DAOQuestion(context: Context) {
             put("question", question)
         }
         val newRowId = db.insert("question", null, values)
-        // Ajouter une entrée dans la table logs
-        val valuesLogs = ContentValues().apply {
-            put("id_user", 1) // Remplacez ceci par l'ID de l'utilisateur qui a ajouté la question
-            put("type", "Question")
-            put("statut", "Ajout")
-            put("id_question", newRowId)
-        }
-        db.insert("logs", null, valuesLogs)
-        // Ecrire dans les logcat
-        Log.i("Log question","Question ajoutée : id_user 1, type : Question, statut : Ajout, id_question : $newRowId")
-
         db.close()
+        // Créer un log
+        createLog(1, "Question", "Ajout", newRowId, null)
         return newRowId
     }
 
@@ -95,6 +102,10 @@ class DAOQuestion(context: Context) {
     fun deleteQuestion(id: Long): Int {
         val db = dbHelper.writableDatabase
         val rowsAffected = db.delete("question", "id = ?", arrayOf(id.toString()))
+        if (rowsAffected > 0) {
+            // Créer un log pour la suppression de la question
+            createLog(1, "Question", "Suppression", id, null)
+        }
         db.close()
         return rowsAffected
     }
@@ -122,6 +133,8 @@ class DAOQuestion(context: Context) {
         db.close()
         return rowsAffected
     }
+
+    // Obtenir les questions non approuvées
     fun getQuestionsNonApprouver(): ArrayList<Question> {
         val questions = ArrayList<Question>()
         val db = dbHelper.readableDatabase
@@ -138,8 +151,9 @@ class DAOQuestion(context: Context) {
         db.close()
         return questions
     }
-    fun getQuestionsApprouver(): ArrayList<Question> {
+
     // Obtenir les questions approuvées
+    fun getQuestionsApprouver(): ArrayList<Question> {
         val questions = ArrayList<Question>()
         val db = dbHelper.readableDatabase
         val cursor = db.rawQuery("SELECT * FROM question WHERE approuver = 1", null)
