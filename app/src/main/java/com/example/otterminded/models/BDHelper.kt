@@ -66,6 +66,32 @@ class BDHelper(context: Context) :
         db.execSQL(createTableUtilisateur)
     }
 
+    /* Création de la table logs
+    Table : Logs
+    Id_user : Id de l'utilisateur qui à fait cette action
+    Id logs
+    Type : Commentaire où Question
+    Statut : Ajout / Suppression
+    Id_question : NULL si c'est un commentaire
+    Id_commentaire : NULL si c'est une question
+     */
+    private fun createTableLogs(db: SQLiteDatabase) {
+        val createTableLogs = """
+            CREATE TABLE logs (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                id_user INTEGER NOT NULL,
+                type VARCHAR(30) NOT NULL,
+                statut VARCHAR(30) NOT NULL,
+                id_question INTEGER,
+                id_commentaire INTEGER,
+                FOREIGN KEY(id_user) REFERENCES utilisateur(id),
+                FOREIGN KEY(id_question) REFERENCES question(id),
+                FOREIGN KEY(id_commentaire) REFERENCES commentaire(id)
+            )
+        """.trimIndent()
+        db.execSQL(createTableLogs)
+    }
+
     // Insertion de données par défaut
     private fun insertDefaultUtilisateur(db: SQLiteDatabase) {
         // Lecture du fichier JSON
