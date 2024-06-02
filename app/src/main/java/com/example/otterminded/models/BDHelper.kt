@@ -16,6 +16,7 @@ class BDHelper(context: Context) :
         createTableQuestion(db)
         createTableUtilisateur(db)
         createTableCommentaire(db)
+        createTableLogs(db)
 
         // Insertion de données par défaut depuis les fichiers JSON
         insertDefaultUtilisateur(db)
