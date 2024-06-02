@@ -67,9 +67,10 @@ class BDHelper(context: Context) :
     }
 
     /* Création de la table logs
-    Table : Logs
-    Id_user : Id de l'utilisateur qui à fait cette action
+    Table : logs
+
     Id logs
+    Id_user : Id de l'utilisateur qui à fait cette action
     Type : Commentaire où Question
     Statut : Ajout / Suppression
     Id_question : NULL si c'est un commentaire

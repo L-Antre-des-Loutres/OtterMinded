@@ -4,18 +4,40 @@ import android.content.Context
 import com.example.otterminded.models.BDHelper
 import com.example.otterminded.models.Question
 
+/* Rappel de la structure de la table logs :
+    Table : logs
+
+    Id logs
+    Id_user : Id de l'utilisateur qui à fait cette action
+    Type : Commentaire où Question
+    Statut : Ajout / Suppression
+    Id_question : NULL si c'est un commentaire
+    Id_commentaire : NULL si c'est une question
+*/
+
+
 class DAOQuestion(context: Context) {
 
     private val dbHelper: BDHelper = BDHelper(context)
 
-    // Ajouter une question
+    // Ajouter une question et ajouter dans les logs
     fun addQuestion(theme: String, question: String): Long {
         val db = dbHelper.writableDatabase
+        // Ajouter une entrée dans la table question
         val values = ContentValues().apply {
             put("theme", theme)
             put("question", question)
         }
         val newRowId = db.insert("question", null, values)
+        // Ajouter une entrée dans la table logs
+        val valuesLogs = ContentValues().apply {
+            put("id_user", 1) // Remplacez ceci par l'ID de l'utilisateur qui a ajouté la question
+            put("type", "Question")
+            put("statut", "Ajout")
+            put("id_question", newRowId)
+        }
+        db.insert("logs", null, valuesLogs)
+
         db.close()
         return newRowId
     }
