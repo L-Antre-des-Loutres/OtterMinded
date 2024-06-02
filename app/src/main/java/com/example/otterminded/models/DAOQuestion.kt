@@ -1,6 +1,7 @@
 package com.example.otterminded.models
 import android.content.ContentValues
 import android.content.Context
+import android.util.Log
 import com.example.otterminded.models.BDHelper
 import com.example.otterminded.models.Question
 
@@ -37,6 +38,8 @@ class DAOQuestion(context: Context) {
             put("id_question", newRowId)
         }
         db.insert("logs", null, valuesLogs)
+        // Ecrire dans les logcat
+        Log.i("Log question","Question ajoutée : id_user 1, type : Question, statut : Ajout, id_question : $newRowId")
 
         db.close()
         return newRowId
